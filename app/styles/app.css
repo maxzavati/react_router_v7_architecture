@@ -1,0 +1,114 @@
+:root {
+  isolation: isolate; /* Create a new stacking context for Base UI */
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --screen-xxs: 375px;
+  --screen-xs: 540px;
+  --screen-sm: 768px;
+  --screen-md: 1024px;
+  --screen-lg: 1440px;
+
+  --color-blue: oklch(45% 50% 264deg);
+  --color-red: oklch(50% 55% 31deg);
+  --color-background: #111111;
+  --color-foreground: oklch(90% 0.008 264);
+
+  --color-gray-50: oklch(98% 0.25% 264deg);
+  --color-gray-100: oklch(12% 9.5% 264deg / 5%);
+  --color-gray-200: oklch(12% 9% 264deg / 7%);
+  --color-gray-300: oklch(12% 8.5% 264deg / 17%);
+  --color-gray-400: oklch(12% 8% 264deg / 38%);
+  --color-gray-500: oklch(12% 7.5% 264deg / 50%);
+  --color-gray-600: oklch(12% 7% 264deg / 67%);
+  --color-gray-700: oklch(12% 6% 264deg / 77%);
+  --color-gray-800: oklch(12% 5% 264deg / 85%);
+  --color-gray-900: oklch(12% 5% 264deg / 90%);
+  --color-gray-950: oklch(12% 5% 264deg / 95%);
+
+  @media (prefers-color-scheme: dark) {
+    --color-blue: oklch(69% 50% 264deg);
+    --color-red: oklch(80% 55% 31deg);
+
+    --color-gray-50: oklch(17% 0.25% 264deg);
+    --color-gray-100: oklch(28% 0.75% 264deg / 65%);
+    --color-gray-200: oklch(29% 0.75% 264deg / 80%);
+    --color-gray-300: oklch(35% 0.75% 264deg / 80%);
+    --color-gray-400: oklch(47% 0.875% 264deg / 80%);
+    --color-gray-500: oklch(64% 1% 264deg / 80%);
+    --color-gray-600: oklch(82% 1% 264deg / 80%);
+    --color-gray-700: oklch(92% 1.125% 264deg / 80%);
+    --color-gray-800: oklch(93% 0.875% 264deg / 85%);
+    --color-gray-900: oklch(95% 0.5% 264deg / 90%);
+    --color-gray-950: oklch(94% 0.375% 264deg / 95%);
+  }
+}
+
+body {
+  position: relative;
+  min-width: 320px;
+  line-height: 1.5;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+}
+
+button {
+  border: none;
+  outline: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+  line-height: 0;
+}
+
+input,
+textarea {
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font-family: inherit;
+}
+
+ul,
+li {
+  color: inherit;
+  font-family: inherit;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+/* Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--grey);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--grey);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+}
