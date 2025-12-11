@@ -85,14 +85,16 @@ li {
   font-family: inherit;
 }
 
-h1 {
-  font-size: 2rem;
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
 }
 
 /* Scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary) var(--grey);
+  scrollbar-color: var(--color-gray-400) var(--color-gray-800);
 }
 
 *::-webkit-scrollbar {
@@ -100,12 +102,12 @@ h1 {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--primary);
+  background-color: var(--color-gray-400);
   border-radius: 5px;
 }
 
 *::-webkit-scrollbar-track {
-  background-color: var(--grey);
+  background-color: var(--color-gray-800);
   border-radius: 5px;
 }
 

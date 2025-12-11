@@ -1,10 +1,6 @@
-import {
-  createRequestTokenApi,
-  type CreateRequestTokenResponse,
-} from "~/apis/auth/endpoints";
-import { redirect } from "react-router";
 import type { Route } from "./+types/auth-connect";
-import { AuthConnectPageView } from "~/components/pages/auth-connect/view";
+import { AuthConnectPageView } from "~/components/views/auth/connect/view";
+import { authConnectModel } from "~/components/views/auth/connect/model";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -14,19 +10,15 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function action() {
-  const data = await createRequestTokenApi();
-  return redirect(
-    `/auth/login?request_token=${encodeURIComponent(data.request_token)}`
-  );
+  const result = await authConnectModel();
+
+  if (result.type == "error") {
+    throw result.response;
+  }
+
+  return result.redirect;
 }
 
-type AuthConnectRouteProps = {
-  actionData: CreateRequestTokenResponse | null;
-};
-
-export default function AuthConnectRoute({
-  actionData,
-}: AuthConnectRouteProps) {
-  console.log("AuthConnectRoute actionData:", actionData);
-  return <AuthConnectPageView actionData={actionData} />;
+export default function AuthConnectRoute() {
+  return <AuthConnectPageView />;
 }

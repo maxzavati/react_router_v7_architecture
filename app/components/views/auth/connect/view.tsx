@@ -1,15 +1,10 @@
+import { Form } from "react-router";
 import { CTAButton } from "~/components/ui/cta-button";
-import { Form, useNavigation } from "react-router";
 import styles from "./index.module.css";
-import type { CreateRequestTokenResponse } from "~/apis/auth/endpoints";
+import { useAuthConnectViewModel } from "./view-model";
 
-export function AuthConnectPageView({
-  actionData,
-}: {
-  actionData: CreateRequestTokenResponse | null;
-}) {
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
+export function AuthConnectPageView() {
+  const { isSubmitting } = useAuthConnectViewModel();
 
   return (
     <main className={styles.main}>

@@ -10,6 +10,13 @@ import {
 import type { Route } from "./+types/root";
 import "./styles/reset.css";
 import "./styles/app.css";
+import { authMiddleware, timingMiddleware } from "./middlewares/auth";
+
+export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
+
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  timingMiddleware,
+];
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

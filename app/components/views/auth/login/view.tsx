@@ -1,11 +1,11 @@
-import { CTAButton } from "~/components/ui/cta-button";
-import { Form, useNavigation } from "react-router";
+import { Form } from "react-router";
 import styles from "./index.module.css";
 import Input from "~/components/ui/field";
+import { useAuthLoginViewModel } from "./view-model";
+import { CTAButton } from "~/components/ui/cta-button";
 
-export function AuthLoginPageView() {
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
+export function AuthLoginView() {
+  const { isSubmitting } = useAuthLoginViewModel();
 
   return (
     <main className={styles.main}>

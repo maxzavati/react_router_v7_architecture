@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 16px;
+}
+
+.direction-horizontal {
+  overflow-x: visible;
+  overflow-y: hidden;
+}
+
+.direction-vertical {
+  flex-direction: column;
+  overflow-y: visible;
+  overflow-x: hidden;
+}
+
+.direction-both {
+  flex-wrap: wrap;
+  overflow: auto;
+}

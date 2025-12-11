@@ -1,16 +1,22 @@
 import api from "../instance";
+import type {
+  CreateRequestTokenResponse,
+  ValidateWithLoginParams,
+  ValidateWithLoginResponse,
+  CreateSessionParams,
+  CreateSessionResponse,
+  DeleteSessionParams,
+  DeleteSessionResponse,
+} from "./types";
 
 /**
  * Step 1: Create a request token
  * https://developer.themoviedb.org/reference/authentication-create-request-token
  */
-export interface CreateRequestTokenResponse {
-  success: boolean;
-  expires_at: string;
-  request_token: string;
-}
 export async function createRequestTokenApi(): Promise<CreateRequestTokenResponse> {
-  const { data } = await api.get("/authentication/token/new");
+  const { data } = await api.get<CreateRequestTokenResponse>(
+    "/authentication/token/new"
+  );
   return data;
 }
 
@@ -18,16 +24,10 @@ export async function createRequestTokenApi(): Promise<CreateRequestTokenRespons
  * Step 2 (no redirect): Validate the request token using TMDB username/password
  * https://developer.themoviedb.org/reference/authentication-validate-token-with-login
  */
-export async function validateWithLoginApi(params: {
-  username: string;
-  password: string;
-  request_token: string;
-}): Promise<{
-  success: boolean;
-  expires_at: string;
-  request_token: string;
-}> {
-  const { data } = await api.post(
+export async function validateWithLoginApi(
+  params: ValidateWithLoginParams
+): Promise<ValidateWithLoginResponse> {
+  const { data } = await api.post<ValidateWithLoginResponse>(
     "/authentication/token/validate_with_login",
     params
   );
@@ -38,43 +38,26 @@ export async function validateWithLoginApi(params: {
  * Step 3: Create a session using the validated request token
  * https://developer.themoviedb.org/reference/authentication-create-session
  */
-export async function createSessionApi(request_token: string): Promise<{
-  success: boolean;
-  session_id: string;
-}> {
-  const { data } = await api.post("/authentication/session/new", {
-    request_token,
-  });
+export async function createSessionApi(
+  params: CreateSessionParams
+): Promise<CreateSessionResponse> {
+  const { data } = await api.post<CreateSessionResponse>(
+    "/authentication/session/new",
+    params
+  );
   return data;
 }
 
 /**
- * Optional: Delete a session (logout)
+ * Delete a session (logout)
  * https://developer.themoviedb.org/reference/authentication-delete-session
  */
-export async function deleteSessionApi(session_id: string): Promise<{
-  success: boolean;
-}> {
-  const { data } = await api.delete("/authentication/session", {
-    data: session_id,
-  });
-  return data;
-}
-
-/**
- * Optional: Get account details (requires session_id)
- * https://developer.themoviedb.org/reference/account-details
- */
-export async function getAccountDetailsApi(session_id: string): Promise<{
-  id: number;
-  name: string;
-  username: string;
-  include_adult: boolean;
-  iso_3166_1: string | null;
-  iso_639_1: string | null;
-} | null> {
-  const { data } = await api.get("/account", {
-    params: { session_id },
-  });
+export async function deleteSessionApi(
+  params: DeleteSessionParams
+): Promise<DeleteSessionResponse> {
+  const { data } = await api.delete<DeleteSessionResponse>(
+    "/authentication/session",
+    { data: params }
+  );
   return data;
 }
