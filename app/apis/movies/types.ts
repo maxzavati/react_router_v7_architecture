@@ -126,3 +126,96 @@ export type SearchTitlesParams = DiscoverMovieParams | DiscoverTvParams;
 export interface DiscoverMovieResponse extends PaginatedResponse<MovieSummary> {}
 
 export interface DiscoverTvResponse extends PaginatedResponse<TvShowSummary> {}
+
+export interface GetMovieDetailsParams {
+  movie_id: number;
+  language?: string;
+  append_to_response?: string;
+}
+
+export interface MovieDetails extends MovieSummary {
+  budget: number;
+  genres: { id: number; name: string }[];
+  homepage: string | null;
+  imdb_id: string | null;
+  production_companies: {
+    id: number;
+    logo_path: string | null;
+    name: string;
+    origin_country: string;
+  }[];
+  production_countries: { iso_3166_1: string; name: string }[];
+  revenue: number;
+  runtime: number | null;
+  spoken_languages: { iso_639_1: string; name: string; english_name: string }[];
+  status: string;
+  tagline: string | null;
+}
+
+export interface GetTvShowDetailsParams {
+  tv_id: number;
+  language?: string;
+  append_to_response?: string;
+}
+
+export interface TvShowDetails extends TvShowSummary {
+  created_by: {
+    id: number;
+    credit_id: string;
+    name: string;
+    gender: number;
+    profile_path: string | null;
+  }[];
+  episode_run_time: number[];
+  genres: { id: number; name: string }[];
+  homepage: string | null;
+  in_production: boolean;
+  languages: string[];
+  last_air_date: string | null;
+  last_episode_to_air: {
+    id: number;
+    name: string;
+    overview: string;
+    air_date: string;
+    episode_number: number;
+    season_number: number;
+    runtime: number | null;
+  } | null;
+  next_episode_to_air: {
+    id: number;
+    name: string;
+    overview: string;
+    air_date: string;
+    episode_number: number;
+    season_number: number;
+    runtime: number | null;
+  } | null;
+  networks: {
+    id: number;
+    name: string;
+    logo_path: string | null;
+    origin_country: string;
+  }[];
+  number_of_episodes: number;
+  number_of_seasons: number;
+  production_companies: {
+    id: number;
+    logo_path: string | null;
+    name: string;
+    origin_country: string;
+  }[];
+  production_countries: { iso_3166_1: string; name: string }[];
+  seasons: {
+    air_date: string | null;
+    episode_count: number;
+    id: number;
+    name: string;
+    overview: string;
+    poster_path: string | null;
+    season_number: number;
+    vote_average: number;
+  }[];
+  status: string;
+  tagline: string | null;
+  type: string;
+}

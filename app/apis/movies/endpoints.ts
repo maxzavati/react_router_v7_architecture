@@ -13,6 +13,10 @@ import type {
   DiscoverMovieResponse,
   DiscoverTvResponse,
   SearchTitlesParams,
+  GetMovieDetailsParams,
+  MovieDetails,
+  GetTvShowDetailsParams,
+  TvShowDetails,
 } from "./types";
 
 export async function getUpcomingMovieListApi(
@@ -73,5 +77,23 @@ export async function searchTitlesApi(
 
   const { data } = await api.get(endpoint, { params: requestParams });
 
+  return data;
+}
+
+export async function getMovieDetailsApi({
+  movie_id,
+  ...params
+}: GetMovieDetailsParams): Promise<MovieDetails> {
+  const { data } = await api.get<MovieDetails>(`/movie/${movie_id}`, {
+    params,
+  });
+  return data;
+}
+
+export async function getTvShowDetailsApi({
+  tv_id,
+  ...params
+}: GetTvShowDetailsParams): Promise<TvShowDetails> {
+  const { data } = await api.get<TvShowDetails>(`/tv/${tv_id}`, { params });
   return data;
 }

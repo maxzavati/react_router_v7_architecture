@@ -85,6 +85,12 @@ li {
   font-family: inherit;
 }
 
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
 h2 {
   font-size: 24px;
   font-weight: 600;

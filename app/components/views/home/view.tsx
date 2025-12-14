@@ -2,13 +2,14 @@ import styles from "./index.module.css";
 import { useHomeViewModel } from "./view-model";
 import { posterPath } from "~/apis/movies/utils";
 import { ItemCard } from "~/components/ui/item-card";
+import { Loader } from "~/components/ui/loader";
 import { ScrollContainer } from "~/components/ui/scroll-container";
 
 export function HomeView() {
   const { loaderData, isLoading } = useHomeViewModel();
 
   if (isLoading) {
-    return <div className={styles.loading}>Loading...</div>;
+    return <Loader />;
   }
 
   return (
@@ -21,6 +22,7 @@ export function HomeView() {
                 <ItemCard
                   key={movie.id}
                   name={movie.title}
+                  link={`/movies/${movie.id}`}
                   image={posterPath(movie.poster_path)}
                 />
               ))
@@ -36,6 +38,7 @@ export function HomeView() {
                 <ItemCard
                   key={movie.id}
                   name={movie.title}
+                  link={`/movies/${movie.id}`}
                   image={posterPath(movie.poster_path)}
                 />
               ))
@@ -51,6 +54,7 @@ export function HomeView() {
                 <ItemCard
                   key={show.id}
                   name={show.name}
+                  link={`/tv-shows/${show.id}`}
                   image={posterPath(show.poster_path)}
                 />
               ))
@@ -66,6 +70,7 @@ export function HomeView() {
                 <ItemCard
                   key={show.id}
                   name={show.name}
+                  link={`/tv-shows/${show.id}`}
                   image={posterPath(show.poster_path)}
                 />
               ))

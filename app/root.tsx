@@ -1,16 +1,15 @@
 import {
-  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  isRouteErrorResponse,
 } from "react-router";
-
 import type { Route } from "./+types/root";
+import { authMiddleware, timingMiddleware } from "./middlewares/auth";
 import "./styles/reset.css";
 import "./styles/app.css";
-import { authMiddleware, timingMiddleware } from "./middlewares/auth";
 
 export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
 
