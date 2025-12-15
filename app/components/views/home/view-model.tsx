@@ -6,7 +6,7 @@ export function useHomeViewModel() {
   const navigation = useNavigation();
 
   return {
-    loaderData,
-    isLoading: navigation.state === "loading",
+    ...loaderData,
+    isLoading: navigation.state == "loading",
   };
 }

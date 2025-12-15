@@ -5,26 +5,29 @@ import {
   getUpcomingTvShowsApi,
 } from "~/apis/movies/endpoints";
 
+const params = { language: "en-US", page: 1 };
+
 export async function homeLoader() {
-  const upcomingMovies = await getUpcomingMovieListApi({
-    language: "en-US",
-    page: 1,
-  });
+  try {
+    const [upcomingMovies, popularMovies, popularTvShows, upcomingTvShows] =
+      await Promise.all([
+        getUpcomingMovieListApi(params),
+        getPopularMoviesApi(params),
+        getPopularTvShowsApi(params),
+        getUpcomingTvShowsApi(params),
+      ]);
 
-  const popularMovies = await getPopularMoviesApi({
-    language: "en-US",
-    page: 1,
-  });
-
-  const popularTvShows = await getPopularTvShowsApi({
-    language: "en-US",
-    page: 1,
-  });
-
-  const upcomingTvShows = await getUpcomingTvShowsApi({
-    language: "en-US",
-    page: 1,
-  });
-
-  return { upcomingMovies, popularMovies, popularTvShows, upcomingTvShows };
+    return {
+      upcomingMovies,
+      popularMovies,
+      popularTvShows,
+      upcomingTvShows,
+    };
+  } catch (error) {
+    return {
+      isError: true,
+      errorMessage:
+        error instanceof Error ? error.message : "Unable to load data.",
+    };
+  }
 }

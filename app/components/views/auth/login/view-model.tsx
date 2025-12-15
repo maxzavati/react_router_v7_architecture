@@ -9,6 +9,7 @@ export function useAuthLoginViewModel() {
 
   return {
     actionData,
-    isSubmitting: navigation.state === "submitting",
+    isError: !!actionData && !actionData.ok,
+    isSubmitting: navigation.state == "submitting",
   };
 }

@@ -1,6 +1,6 @@
 import type { Route } from "./+types/details";
-import { detailsModel } from "~/components/views/details/model";
-import { DetailsView } from "~/components/views/details/view";
+import { movieTvDetailsModel } from "~/components/views/movie-tv-details/model";
+import { MovieTvDetailsView } from "~/components/views/movie-tv-details/view";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -12,9 +12,9 @@ export function meta({}: Route.MetaArgs) {
 export async function loader({ params }: Route.LoaderArgs) {
   const { mediaType, id } = params;
 
-  return detailsModel({ mediaType, id });
+  return movieTvDetailsModel({ mediaType, id });
 }
 
-export default function DetailsRoute() {
-  return <DetailsView />;
+export default function MovieTvDetailsRoute() {
+  return <MovieTvDetailsView />;
 }

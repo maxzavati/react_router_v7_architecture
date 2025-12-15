@@ -4,12 +4,25 @@ import { posterPath } from "~/apis/movies/utils";
 import { ItemCard } from "~/components/ui/item-card";
 import { Loader } from "~/components/ui/loader";
 import { ScrollContainer } from "~/components/ui/scroll-container";
+import { ErrorSection } from "~/components/ui/error-section";
 
 export function HomeView() {
-  const { loaderData, isLoading } = useHomeViewModel();
+  const {
+    isLoading,
+    isError,
+    errorMessage,
+    popularMovies,
+    upcomingMovies,
+    popularTvShows,
+    upcomingTvShows,
+  } = useHomeViewModel();
 
   if (isLoading) {
     return <Loader />;
+  }
+
+  if (isError) {
+    return <ErrorSection message={errorMessage} />;
   }
 
   return (
@@ -17,8 +30,8 @@ export function HomeView() {
       <section className={styles.section}>
         <h2>Popular Movies</h2>
         <ScrollContainer>
-          {loaderData.popularMovies.results.length > 0
-            ? loaderData.popularMovies.results.map((movie) => (
+          {popularMovies?.results?.length
+            ? popularMovies.results.map((movie) => (
                 <ItemCard
                   key={movie.id}
                   name={movie.title}
@@ -33,8 +46,8 @@ export function HomeView() {
       <section className={styles.section}>
         <h2>Upcoming Movies</h2>
         <ScrollContainer>
-          {loaderData.upcomingMovies.results.length > 0
-            ? loaderData.upcomingMovies.results.map((movie) => (
+          {upcomingMovies?.results?.length
+            ? upcomingMovies.results.map((movie) => (
                 <ItemCard
                   key={movie.id}
                   name={movie.title}
@@ -49,8 +62,8 @@ export function HomeView() {
       <section className={styles.section}>
         <h2>Popular TV Shows</h2>
         <ScrollContainer>
-          {loaderData.popularTvShows.results.length > 0
-            ? loaderData.popularTvShows.results.map((show) => (
+          {popularTvShows?.results?.length
+            ? popularTvShows.results.map((show) => (
                 <ItemCard
                   key={show.id}
                   name={show.name}
@@ -65,8 +78,8 @@ export function HomeView() {
       <section className={styles.section}>
         <h2>Upcoming TV Shows</h2>
         <ScrollContainer>
-          {loaderData.upcomingTvShows.results.length > 0
-            ? loaderData.upcomingTvShows.results.map((show) => (
+          {upcomingTvShows?.results?.length
+            ? upcomingTvShows.results.map((show) => (
                 <ItemCard
                   key={show.id}
                   name={show.name}

@@ -65,7 +65,7 @@ export async function searchTitlesApi(
   params: SearchTitlesParams
 ): Promise<DiscoverMovieResponse | DiscoverTvResponse> {
   const { type, query, ...rest } = params;
-  const endpoint = type === "movie" ? "/discover/movie" : "/discover/tv";
+  const endpoint = type == "movie" ? "/discover/movie" : "/discover/tv";
 
   const requestParams: Record<string, unknown> = {
     ...rest,

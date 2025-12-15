@@ -9,6 +9,7 @@ export function useAuthConnectViewModel() {
 
   return {
     actionData,
-    isSubmitting: navigation.state === "submitting",
+    isError: !!actionData && !actionData.ok,
+    isSubmitting: navigation.state == "submitting",
   };
 }

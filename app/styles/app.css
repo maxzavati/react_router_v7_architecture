@@ -16,6 +16,8 @@
 
   --color-blue: oklch(45% 50% 264deg);
   --color-red: oklch(50% 55% 31deg);
+  --color-green: #30a46c;
+  --color-amber: #ffc53d;
   --color-background: #111111;
   --color-foreground: oklch(90% 0.008 264);
 
@@ -95,6 +97,10 @@ h2 {
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 16px;
+}
+
+p {
+  font-size: 16px;
 }
 
 /* Scrollbar */

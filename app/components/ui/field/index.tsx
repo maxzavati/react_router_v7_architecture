@@ -1,14 +1,13 @@
-import { Field } from "@base-ui-components/react/field";
-import type React from "react";
+import { Field as BaseField } from "@base-ui-components/react/field";
 import styles from "./index.module.css";
 
-interface InputProps extends React.ComponentProps<typeof Field.Control> {
+interface InputProps extends React.ComponentProps<typeof BaseField.Control> {
   label?: string;
   description?: string;
   errorMessage?: string;
 }
 
-export default function Input({
+export default function Field({
   label,
   description,
   errorMessage,
@@ -16,27 +15,27 @@ export default function Input({
   ...controlProps
 }: InputProps) {
   return (
-    <Field.Root className={styles.Field}>
+    <BaseField.Root className={styles.Field}>
       {label ? (
-        <Field.Label className={styles.Label}>{label}</Field.Label>
+        <BaseField.Label className={styles.Label}>{label}</BaseField.Label>
       ) : null}
 
-      <Field.Control
+      <BaseField.Control
         {...controlProps}
         className={[styles.Input, className].filter(Boolean).join(" ")}
       />
 
       {errorMessage ? (
-        <Field.Error className={styles.Error} match="valueMissing">
+        <BaseField.Error className={styles.Error} match="valueMissing">
           {errorMessage}
-        </Field.Error>
+        </BaseField.Error>
       ) : null}
 
       {description ? (
-        <Field.Description className={styles.Description}>
+        <BaseField.Description className={styles.Description}>
           {description}
-        </Field.Description>
+        </BaseField.Description>
       ) : null}
-    </Field.Root>
+    </BaseField.Root>
   );
 }

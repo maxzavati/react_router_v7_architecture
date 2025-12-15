@@ -1,7 +1,7 @@
 import { useLoaderData, useNavigation, useParams } from "react-router";
-import type { loader } from "~/routes/details";
+import type { loader } from "~/routes/movie-tv-details";
 
-export function useDetailsViewModel() {
+export function useMovieTvDetailsViewModel() {
   const loaderData = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const params = useParams();
@@ -9,7 +9,7 @@ export function useDetailsViewModel() {
 
   return {
     id,
-    loaderData,
+    ...loaderData,
     isLoading: navigation.state == "loading",
   };
 }

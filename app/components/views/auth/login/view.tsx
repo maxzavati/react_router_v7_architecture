@@ -1,24 +1,34 @@
 import { Form } from "react-router";
 import styles from "./index.module.css";
-import Input from "~/components/ui/field";
+import Field from "~/components/ui/field";
+import { Button } from "~/components/ui/button";
+import { Loader } from "~/components/ui/loader";
 import { useAuthLoginViewModel } from "./view-model";
-import { CTAButton } from "~/components/ui/cta-button";
+import { Message } from "~/components/ui/message";
 
 export function AuthLoginView() {
-  const { isSubmitting } = useAuthLoginViewModel();
+  const { isSubmitting, isError } = useAuthLoginViewModel();
 
   return (
-    <main className={styles.main}>
-      <div className={styles.container}>
-        <h1>Login</h1>
-        <Form method="post" className={styles.form}>
-          <Input name="username" label="Username" required />
-          <Input name="password" label="Password" type="password" required />
-          <CTAButton type="submit">
-            {isSubmitting ? "Connecting..." : "Connect"}
-          </CTAButton>
-        </Form>
-      </div>
-    </main>
+    <>
+      {isSubmitting ? <Loader /> : null}
+      <main className={styles.main}>
+        <div className={styles.container}>
+          <h1>Login</h1>
+          <Form method="post" className={styles.form}>
+            <Field name="username" label="Username" required />
+            <Field name="password" label="Password" type="password" required />
+            <Button type="submit">
+              {isSubmitting ? "Connecting..." : "Connect"}
+            </Button>
+          </Form>
+          {isError ? (
+            <Message variant="error">
+              An error occurred during login. Please try again.
+            </Message>
+          ) : null}
+        </div>
+      </main>
+    </>
   );
 }

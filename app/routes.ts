@@ -4,5 +4,5 @@ export default [
   index("routes/home.tsx"),
   route("/auth/connect", "routes/auth-connect.tsx"),
   route("/auth/login", "routes/auth-login.tsx"),
-  route("/:mediaType/:id", "routes/details.tsx"),
+  route("/:mediaType/:id", "routes/movie-tv-details.tsx"),
 ] satisfies RouteConfig;

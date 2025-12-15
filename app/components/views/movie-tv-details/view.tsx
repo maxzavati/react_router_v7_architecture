@@ -1,21 +1,21 @@
-import { useDetailsViewModel } from "./view-model";
 import styles from "./index.module.css";
 import { Loader } from "~/components/ui/loader";
+import { useMovieTvDetailsViewModel } from "./view-model";
+import { ErrorSection } from "~/components/ui/error-section";
 
 const TMDB_IMAGE_BASE = import.meta.env.VITE_IMAGE_BASE;
 
-export function DetailsView() {
-  const { loaderData, isLoading } = useDetailsViewModel();
+export function MovieTvDetailsView() {
+  const { isLoading, isError, errorMessage, mediaType, data } =
+    useMovieTvDetailsViewModel();
 
   if (isLoading) {
     return <Loader />;
   }
 
-  if (!loaderData?.data) {
-    return <div className={styles.error}>Unable to load details.</div>;
+  if (isError || !data) {
+    return <ErrorSection message={errorMessage} />;
   }
-
-  const { data, mediaType } = loaderData;
 
   const posterUrl = data.poster_path
     ? `${TMDB_IMAGE_BASE}/w500${data.poster_path}`
@@ -28,7 +28,7 @@ export function DetailsView() {
     : undefined;
 
   const title =
-    mediaType === "movie" ? data.title : (data.name ?? data.original_name);
+    mediaType == "movie" ? data.title : (data.name ?? data.original_name);
 
   return (
     <main className={styles.main}>

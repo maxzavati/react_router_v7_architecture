@@ -2,21 +2,30 @@ import { redirect } from "react-router";
 import { createRequestTokenApi } from "~/apis/auth/endpoints";
 
 export async function authConnectModel() {
-  const data = await createRequestTokenApi();
+  try {
+    const data = await createRequestTokenApi();
 
-  if (!data.success || !data.request_token) {
+    if (!data.success || !data.request_token) {
+      return {
+        type: "error" as const,
+        response: new Response("Failed to create request token.", {
+          status: 500,
+        }),
+      };
+    }
+
+    return {
+      type: "success" as const,
+      redirect: redirect(
+        `/auth/login?request_token=${encodeURIComponent(data.request_token)}`
+      ),
+    };
+  } catch (cause) {
     return {
       type: "error" as const,
-      response: new Response("Failed to create request token.", {
+      response: new Response("Failed to connect. Please try again later.", {
         status: 500,
       }),
     };
   }
-
-  return {
-    type: "success" as const,
-    redirect: redirect(
-      `/auth/login?request_token=${encodeURIComponent(data.request_token)}`
-    ),
-  };
 }
