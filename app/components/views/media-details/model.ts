@@ -1,7 +1,7 @@
 import {
   getMovieDetailsApi,
   getTvShowDetailsApi,
-} from "~/apis/movies/endpoints";
+} from "~/apis/media/endpoints";
 
 type MediaType = "movies" | "tv-shows";
 
@@ -14,10 +14,7 @@ interface DetailsModelParams {
   id: string | undefined;
 }
 
-export async function movieTvDetailsModel({
-  mediaType,
-  id,
-}: DetailsModelParams) {
+export async function mediaDetailsModel({ mediaType, id }: DetailsModelParams) {
   try {
     if (!mediaType || !id) {
       throw new Error("Missing media type or id");

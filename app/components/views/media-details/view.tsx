@@ -1,13 +1,13 @@
 import styles from "./index.module.css";
 import { Loader } from "~/components/ui/loader";
-import { useMovieTvDetailsViewModel } from "./view-model";
+import { useMediaDetailsViewModel } from "./view-model";
 import { ErrorSection } from "~/components/ui/error-section";
 
 const TMDB_IMAGE_BASE = import.meta.env.VITE_IMAGE_BASE;
 
-export function MovieTvDetailsView() {
+export function MediaDetailsView() {
   const { isLoading, isError, errorMessage, mediaType, data } =
-    useMovieTvDetailsViewModel();
+    useMediaDetailsViewModel();
 
   if (isLoading) {
     return <Loader />;

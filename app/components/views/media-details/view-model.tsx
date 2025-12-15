@@ -1,7 +1,7 @@
 import { useLoaderData, useNavigation, useParams } from "react-router";
-import type { loader } from "~/routes/movie-tv-details";
+import type { loader } from "~/routes/media-details";
 
-export function useMovieTvDetailsViewModel() {
+export function useMediaDetailsViewModel() {
   const loaderData = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const params = useParams();

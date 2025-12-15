@@ -1,10 +1,10 @@
 import styles from "./index.module.css";
 import { useHomeViewModel } from "./view-model";
-import { posterPath } from "~/apis/movies/utils";
-import { ItemCard } from "~/components/ui/item-card";
 import { Loader } from "~/components/ui/loader";
-import { ScrollContainer } from "~/components/ui/scroll-container";
+import { posterPath } from "~/apis/media/utils";
+import { MediaCard } from "~/components/ui/media-card";
 import { ErrorSection } from "~/components/ui/error-section";
+import { MediaSection } from "~/components/templates/media-section";
 
 export function HomeView() {
   const {
@@ -27,69 +27,62 @@ export function HomeView() {
 
   return (
     <main className={styles.main}>
-      <section className={styles.section}>
-        <h2>Popular Movies</h2>
-        <ScrollContainer>
-          {popularMovies?.results?.length
-            ? popularMovies.results.map((movie) => (
-                <ItemCard
-                  key={movie.id}
-                  name={movie.title}
-                  link={`/movies/${movie.id}`}
-                  image={posterPath(movie.poster_path)}
-                />
-              ))
-            : null}
-        </ScrollContainer>
-      </section>
+      <MediaSection
+        title="Popular Movies"
+        seeAllHref="/movies/popular"
+        items={popularMovies?.results}
+        renderItem={(movie) => (
+          <MediaCard
+            key={movie.id}
+            name={movie.title}
+            link={`/movies/${movie.id}`}
+            image={posterPath(movie.poster_path)}
+            onFavorite={() => {}}
+          />
+        )}
+      />
 
-      <section className={styles.section}>
-        <h2>Upcoming Movies</h2>
-        <ScrollContainer>
-          {upcomingMovies?.results?.length
-            ? upcomingMovies.results.map((movie) => (
-                <ItemCard
-                  key={movie.id}
-                  name={movie.title}
-                  link={`/movies/${movie.id}`}
-                  image={posterPath(movie.poster_path)}
-                />
-              ))
-            : null}
-        </ScrollContainer>
-      </section>
+      <MediaSection
+        title="Upcoming Movies"
+        items={upcomingMovies?.results}
+        seeAllHref="/movies/upcoming"
+        renderItem={(movie) => (
+          <MediaCard
+            key={movie.id}
+            name={movie.title}
+            link={`/movies/${movie.id}`}
+            image={posterPath(movie.poster_path)}
+          />
+        )}
+      />
 
-      <section className={styles.section}>
-        <h2>Popular TV Shows</h2>
-        <ScrollContainer>
-          {popularTvShows?.results?.length
-            ? popularTvShows.results.map((show) => (
-                <ItemCard
-                  key={show.id}
-                  name={show.name}
-                  link={`/tv-shows/${show.id}`}
-                  image={posterPath(show.poster_path)}
-                />
-              ))
-            : null}
-        </ScrollContainer>
-      </section>
+      <MediaSection
+        title="Popular TV Shows"
+        seeAllHref="/tv-shows/popular"
+        items={popularTvShows?.results}
+        renderItem={(show) => (
+          <MediaCard
+            key={show.id}
+            name={show.name}
+            link={`/tv-shows/${show.id}`}
+            image={posterPath(show.poster_path)}
+          />
+        )}
+      />
 
-      <section className={styles.section}>
-        <h2>Upcoming TV Shows</h2>
-        <ScrollContainer>
-          {upcomingTvShows?.results?.length
-            ? upcomingTvShows.results.map((show) => (
-                <ItemCard
-                  key={show.id}
-                  name={show.name}
-                  link={`/tv-shows/${show.id}`}
-                  image={posterPath(show.poster_path)}
-                />
-              ))
-            : null}
-        </ScrollContainer>
-      </section>
+      <MediaSection
+        title="Upcoming TV Shows"
+        seeAllHref="/tv-shows/upcoming"
+        items={upcomingTvShows?.results}
+        renderItem={(show) => (
+          <MediaCard
+            key={show.id}
+            name={show.name}
+            link={`/tv-shows/${show.id}`}
+            image={posterPath(show.poster_path)}
+          />
+        )}
+      />
     </main>
   );
 }

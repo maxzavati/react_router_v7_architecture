@@ -1,0 +1,25 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.seeAllLink {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.emptyMessage {
+  color: var(--color-gray-400);
+  font-size: 0.875rem;
+  padding: 1.5rem 0;
+  white-space: nowrap;
+}

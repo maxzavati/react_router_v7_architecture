@@ -3,7 +3,7 @@ import {
   getPopularTvShowsApi,
   getUpcomingMovieListApi,
   getUpcomingTvShowsApi,
-} from "~/apis/movies/endpoints";
+} from "~/apis/media/endpoints";
 
 const params = { language: "en-US", page: 1 };
 
