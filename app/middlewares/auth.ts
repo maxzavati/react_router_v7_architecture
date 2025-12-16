@@ -1,12 +1,16 @@
 import type { Route } from "../+types/root";
+import { userContext } from "~/contexts/user";
 import { sessionIdCookie } from "~/apis/auth/utils";
 import { redirect, type DataStrategyResult } from "react-router";
 
 // Server-side Authentication Middleware
-export async function authMiddleware({ request }: Route.ActionArgs) {
+export async function authMiddleware({ request, context }: Route.ActionArgs) {
   const pathname = new URL(request.url).pathname;
   const cookieHeader = request.headers.get("Cookie");
-  const sessionId = await sessionIdCookie.parse(cookieHeader);
+  const sessionId: string | undefined =
+    await sessionIdCookie.parse(cookieHeader);
+
+  context.set(userContext, { sessionId });
 
   if (pathname.startsWith("/auth")) {
     if (sessionId) {

@@ -10,6 +10,7 @@ import type { Route } from "./+types/root";
 import { authMiddleware, timingMiddleware } from "./middlewares/auth";
 import "./styles/reset.css";
 import "./styles/app.css";
+import { userContext } from "./contexts/user";
 import { Footer } from "./components/templates/footer";
 import { Header } from "./components/templates/header";
 
@@ -18,6 +19,11 @@ export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   timingMiddleware,
 ];
+
+export async function loader({ context }: Route.LoaderArgs) {
+  const user = context.get(userContext);
+  return { user };
+}
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

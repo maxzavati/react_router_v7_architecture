@@ -1,15 +1,22 @@
 .main {
-  min-height: 100svh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 79svh;
 }
 
 .container {
+  max-width: 300px;
+  margin: 0 auto;
+  padding-top: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
+}
+
+.backgroundImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center bottom;
 }
 
 .form {

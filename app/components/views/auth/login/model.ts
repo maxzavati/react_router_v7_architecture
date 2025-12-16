@@ -60,7 +60,6 @@ export async function authLoginModel({ request, formData }: LoginParams) {
       }),
     };
   } catch (cause) {
-    console.error("[authLoginModel] unexpected error", cause);
     return {
       type: "error" as const,
       response: new Response("Failed to sign in. Please try again later.", {

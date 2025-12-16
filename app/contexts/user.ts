@@ -1,8 +1,7 @@
 import { createContext } from "react-router";
 
 interface User {
-  id: string;
-  name: string;
+  sessionId: string | undefined;
 }
 
 export const userContext = createContext<User | null>(null);

@@ -1,9 +1,9 @@
 import { Form } from "react-router";
-import { Button } from "~/components/ui/button";
 import styles from "./index.module.css";
-import { useAuthConnectViewModel } from "./view-model";
-import { Message } from "~/components/ui/message";
+import { Button } from "~/components/ui/button";
 import backgroundImage from "/public/movies.png";
+import { Message } from "~/components/ui/message";
+import { useAuthConnectViewModel } from "./view-model";
 
 export function AuthConnectPageView() {
   const { isSubmitting, isError } = useAuthConnectViewModel();
@@ -25,7 +25,7 @@ export function AuthConnectPageView() {
             shows.
           </p>
           <Form method="post">
-            <Button type="submit">
+            <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Connecting..." : "Connect"}
             </Button>
           </Form>
