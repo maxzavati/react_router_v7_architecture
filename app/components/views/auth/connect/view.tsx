@@ -3,6 +3,7 @@ import { Button } from "~/components/ui/button";
 import styles from "./index.module.css";
 import { useAuthConnectViewModel } from "./view-model";
 import { Message } from "~/components/ui/message";
+import backgroundImage from "/public/movies.png";
 
 export function AuthConnectPageView() {
   const { isSubmitting, isError } = useAuthConnectViewModel();
@@ -10,8 +11,19 @@ export function AuthConnectPageView() {
   return (
     <>
       <main className={styles.main}>
+        <section>
+          <img
+            className={styles.backgroundImage}
+            src={backgroundImage}
+            alt="Movies background"
+          />
+        </section>
         <div className={styles.container}>
           <h1>Let's Authorize</h1>
+          <p>
+            By authorizing you'll be able to save your favorite movies and TV
+            shows.
+          </p>
           <Form method="post">
             <Button type="submit">
               {isSubmitting ? "Connecting..." : "Connect"}

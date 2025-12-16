@@ -10,6 +10,8 @@ import type { Route } from "./+types/root";
 import { authMiddleware, timingMiddleware } from "./middlewares/auth";
 import "./styles/reset.css";
 import "./styles/app.css";
+import { Footer } from "./components/templates/footer";
+import { Header } from "./components/templates/header";
 
 export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
 
@@ -40,7 +42,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <Header />
         <div className="root">{children}</div>
+        <Footer />
         <ScrollRestoration />
         <Scripts />
       </body>

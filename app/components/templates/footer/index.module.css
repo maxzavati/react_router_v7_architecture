@@ -1,0 +1,27 @@
+.footer {
+  width: 100%;
+  border-top: 1px solid #000;
+}
+
+.container {
+  gap: 8px;
+  padding: 32px 0;
+}
+
+.container p {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.icons {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 0 auto;
+}
+
+.icons svg {
+  height: 16px;
+  width: max-content;
+}

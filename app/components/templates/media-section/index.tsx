@@ -30,7 +30,6 @@ export function MediaSection<T>({
           </Link>
         ) : null}
       </div>
-
       {hasItems ? (
         <ScrollContainer>{list.map(renderItem)}</ScrollContainer>
       ) : (

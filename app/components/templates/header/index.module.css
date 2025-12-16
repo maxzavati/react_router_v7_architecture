@@ -1,0 +1,13 @@
+.header {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.header svg {
+  height: 20px;
+  width: max-content;
+}
