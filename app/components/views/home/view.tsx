@@ -1,10 +1,11 @@
-import styles from "./index.module.css";
-import { useHomeViewModel } from "./view-model";
-import { Loader } from "~/components/ui/loader";
-import { posterPath } from "~/apis/media/utils";
-import { MediaCard } from "~/components/ui/media-card";
-import { ErrorSection } from "~/components/ui/error-section";
-import { MediaSection } from "~/components/templates/media-section";
+import styles from './index.module.css';
+import { useHomeViewModel } from './view-model';
+import { Loader } from '~/components/ui/loader';
+import { posterPath } from '~/apis/media/utils';
+import backgroundImage from '/public/movies.png';
+import { MediaCard } from '~/components/ui/media-card';
+import { ErrorSection } from '~/components/ui/error-section';
+import { MediaSection } from '~/components/templates/media-section';
 
 export function HomeView() {
   const {
@@ -27,6 +28,14 @@ export function HomeView() {
 
   return (
     <main className={styles.main}>
+      <section>
+        <img
+          className={styles.backgroundImage}
+          src={backgroundImage}
+          alt="Movies background"
+        />
+      </section>
+
       <MediaSection
         title="Popular Movies"
         seeAllHref="/movies/popular"

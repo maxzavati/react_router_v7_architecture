@@ -1,5 +1,5 @@
-import { useActionData, useNavigation } from "react-router";
-import type { action as authLoginAction } from "~/routes/auth-login";
+import { useActionData, useNavigation } from 'react-router';
+import type { action as authLoginAction } from '~/routes/auth-login';
 
 type ActionData = Awaited<ReturnType<typeof authLoginAction>>;
 
@@ -10,6 +10,6 @@ export function useAuthLoginViewModel() {
   return {
     actionData,
     isError: !!actionData && !actionData.ok,
-    isSubmitting: navigation.state == "submitting",
+    isSubmitting: navigation.state == 'submitting',
   };
 }

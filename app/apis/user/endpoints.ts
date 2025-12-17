@@ -1,5 +1,5 @@
-import api from "../instance";
-import type { AccountDetailsResponse, GetAccountDetailsParams } from "./types";
+import api from '../instance';
+import type { AccountDetailsResponse, GetAccountDetailsParams } from './types';
 
 /**
  * Get account details (requires session_id)
@@ -8,7 +8,7 @@ import type { AccountDetailsResponse, GetAccountDetailsParams } from "./types";
 export async function getAccountDetailsApi({
   session_id,
 }: GetAccountDetailsParams): Promise<AccountDetailsResponse | null> {
-  const { data } = await api.get<AccountDetailsResponse>("/account", {
+  const { data } = await api.get<AccountDetailsResponse>('/account', {
     params: { session_id },
   });
   return data;

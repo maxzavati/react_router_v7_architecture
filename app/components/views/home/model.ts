@@ -3,9 +3,9 @@ import {
   getPopularTvShowsApi,
   getUpcomingMovieListApi,
   getUpcomingTvShowsApi,
-} from "~/apis/media/endpoints";
+} from '~/apis/media/endpoints';
 
-const params = { language: "en-US", page: 1 };
+const params = { language: 'en-US', page: 1 };
 
 export async function homeLoader() {
   try {
@@ -27,7 +27,7 @@ export async function homeLoader() {
     return {
       isError: true,
       errorMessage:
-        error instanceof Error ? error.message : "Unable to load data.",
+        error instanceof Error ? error.message : 'Unable to load data.',
     };
   }
 }

@@ -1,11 +1,11 @@
-import type { Route } from "./+types/media-details";
-import { mediaDetailsModel } from "~/components/views/media-details/model";
-import { MediaDetailsView } from "~/components/views/media-details/view";
+import type { Route } from './+types/media-details';
+import { mediaDetailsModel } from '~/components/views/media-details/model';
+import { MediaDetailsView } from '~/components/views/media-details/view';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Details" },
-    { name: "description", content: "Item details" },
+    { title: 'Details' },
+    { name: 'description', content: 'Item details' },
   ];
 }
 

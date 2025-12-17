@@ -1,7 +1,7 @@
-import { Link } from "react-router";
-import styles from "./index.module.css";
-import ArrowRight from "~/assets/icons/arrow-right.svg?react";
-import { ScrollContainer } from "~/components/ui/scroll-container";
+import { Link } from 'react-router';
+import styles from './index.module.css';
+import ArrowRight from '~/assets/icons/arrow-right.svg?react';
+import { ScrollContainer } from '~/components/ui/scroll-container';
 
 interface MediaSectionProps<T> {
   title: string;

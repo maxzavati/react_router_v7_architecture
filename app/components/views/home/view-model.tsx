@@ -1,5 +1,5 @@
-import { useLoaderData, useNavigation } from "react-router";
-import type { loader } from "~/routes/home";
+import { useLoaderData, useNavigation } from 'react-router';
+import type { loader } from '~/routes/home';
 
 export function useHomeViewModel() {
   const loaderData = useLoaderData<typeof loader>();
@@ -7,6 +7,6 @@ export function useHomeViewModel() {
 
   return {
     ...loaderData,
-    isLoading: navigation.state == "loading",
+    isLoading: navigation.state == 'loading',
   };
 }

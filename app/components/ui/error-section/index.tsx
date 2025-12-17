@@ -1,6 +1,6 @@
-import { Form } from "react-router";
-import styles from "./index.module.css";
-import { Button } from "../button";
+import { Form } from 'react-router';
+import styles from './index.module.css';
+import { Button } from '../button';
 
 export function ErrorSection({ message }: { message: string }) {
   return (

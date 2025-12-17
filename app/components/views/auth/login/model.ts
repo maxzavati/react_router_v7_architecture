@@ -1,6 +1,6 @@
-import { redirect } from "react-router";
-import { createSessionApi, validateWithLoginApi } from "~/apis/auth/endpoints";
-import { expiresAtToMaxAgeSeconds, sessionIdCookie } from "~/apis/auth/utils";
+import { redirect } from 'react-router';
+import { createSessionApi, validateWithLoginApi } from '~/apis/auth/endpoints';
+import { expiresAtToMaxAgeSeconds, sessionIdCookie } from '~/apis/auth/utils';
 
 interface LoginParams {
   request: Request;
@@ -10,18 +10,18 @@ interface LoginParams {
 export async function authLoginModel({ request, formData }: LoginParams) {
   try {
     const url = new URL(request.url);
-    const request_token = url.searchParams.get("request_token");
-    const username = formData.get("username");
-    const password = formData.get("password");
+    const request_token = url.searchParams.get('request_token');
+    const username = formData.get('username');
+    const password = formData.get('password');
 
     if (
       !request_token ||
-      typeof username !== "string" ||
-      typeof password !== "string"
+      typeof username !== 'string' ||
+      typeof password !== 'string'
     ) {
       return {
-        type: "error" as const,
-        response: new Response("Invalid request", { status: 400 }),
+        type: 'error' as const,
+        response: new Response('Invalid request', { status: 400 }),
       };
     }
 
@@ -32,8 +32,8 @@ export async function authLoginModel({ request, formData }: LoginParams) {
     });
     if (!validated.success) {
       return {
-        type: "error" as const,
-        response: new Response("Invalid credentials", { status: 401 }),
+        type: 'error' as const,
+        response: new Response('Invalid credentials', { status: 401 }),
       };
     }
 
@@ -42,27 +42,27 @@ export async function authLoginModel({ request, formData }: LoginParams) {
     });
     if (!session.success) {
       return {
-        type: "error" as const,
-        response: new Response("Session creation failed", { status: 500 }),
+        type: 'error' as const,
+        response: new Response('Session creation failed', { status: 500 }),
       };
     }
 
     const maxAge = expiresAtToMaxAgeSeconds(validated.expires_at);
     const setCookieHeader = await sessionIdCookie.serialize(
       session.session_id,
-      { maxAge }
+      { maxAge },
     );
 
     return {
-      type: "success" as const,
-      redirect: redirect("/", {
-        headers: { "Set-Cookie": setCookieHeader },
+      type: 'success' as const,
+      redirect: redirect('/', {
+        headers: { 'Set-Cookie': setCookieHeader },
       }),
     };
   } catch (cause) {
     return {
-      type: "error" as const,
-      response: new Response("Failed to sign in. Please try again later.", {
+      type: 'error' as const,
+      response: new Response('Failed to sign in. Please try again later.', {
         status: 500,
       }),
     };

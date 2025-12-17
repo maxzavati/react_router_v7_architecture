@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
-import styles from "./index.module.css";
+import type { ReactNode } from 'react';
+import styles from './index.module.css';
 
-type MessageVariant = "success" | "error" | "warning";
+type MessageVariant = 'success' | 'error' | 'warning';
 
 interface MessageProps {
   children: ReactNode;

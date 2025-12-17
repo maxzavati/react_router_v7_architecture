@@ -1,4 +1,4 @@
-import api from "../instance";
+import api from '../instance';
 import type {
   GetUpcomingMovieListParams,
   UpcomingMoviesResponse,
@@ -17,55 +17,55 @@ import type {
   MovieDetails,
   GetTvShowDetailsParams,
   TvShowDetails,
-} from "./types";
+} from './types';
 
 export async function getUpcomingMovieListApi(
-  params?: GetUpcomingMovieListParams
+  params?: GetUpcomingMovieListParams,
 ): Promise<UpcomingMoviesResponse> {
-  const { data } = await api.get<UpcomingMoviesResponse>("/movie/upcoming", {
+  const { data } = await api.get<UpcomingMoviesResponse>('/movie/upcoming', {
     params,
   });
   return data;
 }
 
 export async function getPopularMoviesApi(
-  params?: GetPopularMoviesParams
+  params?: GetPopularMoviesParams,
 ): Promise<PopularMoviesResponse> {
-  const { data } = await api.get<PopularMoviesResponse>("/movie/popular", {
+  const { data } = await api.get<PopularMoviesResponse>('/movie/popular', {
     params,
   });
   return data;
 }
 
 export async function getPopularTvShowsApi(
-  params?: GetPopularTvShowsParams
+  params?: GetPopularTvShowsParams,
 ): Promise<PopularTvShowsResponse> {
-  const { data } = await api.get<PopularTvShowsResponse>("/tv/popular", {
+  const { data } = await api.get<PopularTvShowsResponse>('/tv/popular', {
     params,
   });
   return data;
 }
 
 export async function getUpcomingTvShowsApi(
-  params?: GetUpcomingTvShowsParams
+  params?: GetUpcomingTvShowsParams,
 ): Promise<UpcomingTvShowsResponse> {
-  const { data } = await api.get<UpcomingTvShowsResponse>("/tv/on_the_air", {
+  const { data } = await api.get<UpcomingTvShowsResponse>('/tv/on_the_air', {
     params,
   });
   return data;
 }
 
 export function searchTitlesApi(
-  params: DiscoverMovieParams
+  params: DiscoverMovieParams,
 ): Promise<DiscoverMovieResponse>;
 export function searchTitlesApi(
-  params: DiscoverTvParams
+  params: DiscoverTvParams,
 ): Promise<DiscoverTvResponse>;
 export async function searchTitlesApi(
-  params: SearchTitlesParams
+  params: SearchTitlesParams,
 ): Promise<DiscoverMovieResponse | DiscoverTvResponse> {
   const { type, query, ...rest } = params;
-  const endpoint = type == "movie" ? "/discover/movie" : "/discover/tv";
+  const endpoint = type == 'movie' ? '/discover/movie' : '/discover/tv';
 
   const requestParams: Record<string, unknown> = {
     ...rest,

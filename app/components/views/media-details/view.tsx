@@ -1,7 +1,7 @@
-import styles from "./index.module.css";
-import { Loader } from "~/components/ui/loader";
-import { useMediaDetailsViewModel } from "./view-model";
-import { ErrorSection } from "~/components/ui/error-section";
+import styles from './index.module.css';
+import { Loader } from '~/components/ui/loader';
+import { useMediaDetailsViewModel } from './view-model';
+import { ErrorSection } from '~/components/ui/error-section';
 
 const TMDB_IMAGE_BASE = import.meta.env.VITE_IMAGE_BASE;
 
@@ -19,7 +19,7 @@ export function MediaDetailsView() {
 
   const posterUrl = data.poster_path
     ? `${TMDB_IMAGE_BASE}/w500${data.poster_path}`
-    : "";
+    : '';
 
   const backdropStyle = data.backdrop_path
     ? {
@@ -28,7 +28,7 @@ export function MediaDetailsView() {
     : undefined;
 
   const title =
-    mediaType == "movie" ? data.title : (data.name ?? data.original_name);
+    mediaType == 'movie' ? data.title : (data.name ?? data.original_name);
 
   return (
     <main className={styles.main}>

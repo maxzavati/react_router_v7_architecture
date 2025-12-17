@@ -1,6 +1,6 @@
-import { Link } from "react-router";
-import styles from "./index.module.css";
-import HeartIcon from "~/assets/icons/heart.svg?react";
+import { Link } from 'react-router';
+import styles from './index.module.css';
+import HeartIcon from '~/assets/icons/heart.svg?react';
 // import HeartFilledIcon from "~/assets/icons/heart-filled.svg?react";
 
 interface ItemCardProps {

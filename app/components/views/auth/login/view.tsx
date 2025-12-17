@@ -1,11 +1,11 @@
-import { Form } from "react-router";
-import styles from "./index.module.css";
-import Field from "~/components/ui/field";
-import { Button } from "~/components/ui/button";
-import { Loader } from "~/components/ui/loader";
-import { useAuthLoginViewModel } from "./view-model";
-import { Message } from "~/components/ui/message";
-import backgroundImage from "/public/movies.png";
+import { Form } from 'react-router';
+import styles from './index.module.css';
+import Field from '~/components/ui/field';
+import { Button } from '~/components/ui/button';
+import { Loader } from '~/components/ui/loader';
+import { useAuthLoginViewModel } from './view-model';
+import { Message } from '~/components/ui/message';
+import backgroundImage from '/public/movies.png';
 
 export function AuthLoginView() {
   const { isSubmitting, isError } = useAuthLoginViewModel();
@@ -27,7 +27,7 @@ export function AuthLoginView() {
             <Field name="username" label="Username" required />
             <Field name="password" label="Password" type="password" required />
             <Button type="submit">
-              {isSubmitting ? "Connecting..." : "Connect"}
+              {isSubmitting ? 'Connecting...' : 'Connect'}
             </Button>
           </Form>
           {isError ? (

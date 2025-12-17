@@ -1,7 +1,7 @@
-import type { PropsWithChildren } from "react";
-import styles from "./index.module.css";
+import type { PropsWithChildren } from 'react';
+import styles from './index.module.css';
 
-type ScrollDirection = "horizontal" | "vertical" | "both";
+type ScrollDirection = 'horizontal' | 'vertical' | 'both';
 
 interface ScrollContainerProps extends PropsWithChildren {
   scrollDirection?: ScrollDirection;
@@ -11,15 +11,15 @@ interface ScrollContainerProps extends PropsWithChildren {
 export function ScrollContainer({
   children,
   className,
-  scrollDirection = "horizontal",
+  scrollDirection = 'horizontal',
 }: ScrollContainerProps) {
   const classes = [
     styles.container,
     styles[`direction-${scrollDirection}`],
-    className ?? "",
+    className ?? '',
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   return <div className={classes}>{children}</div>;
 }

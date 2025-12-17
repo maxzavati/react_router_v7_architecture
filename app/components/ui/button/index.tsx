@@ -1,7 +1,7 @@
-import { Button as BaseButton } from "@base-ui-components/react/button";
-import styles from "./index.module.css";
+import { Button as BaseButton } from '@base-ui-components/react/button';
+import styles from './index.module.css';
 
-type Variant = "base" | "ghost" | "outline";
+type Variant = 'base' | 'ghost' | 'outline';
 
 type ButtonProps = React.ComponentPropsWithoutRef<typeof BaseButton> & {
   variant?: Variant;
@@ -16,12 +16,12 @@ const variantClassMap: Record<Variant, string> = {
 export function Button({
   className,
   children,
-  variant = "base",
+  variant = 'base',
   ...props
 }: ButtonProps) {
-  const classes = [styles.Button, variantClassMap[variant], className ?? ""]
+  const classes = [styles.Button, variantClassMap[variant], className ?? '']
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   return (
     <BaseButton {...props} className={classes}>

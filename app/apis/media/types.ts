@@ -78,7 +78,7 @@ export interface GetUpcomingTvShowsParams {
 }
 
 export interface DiscoverMovieParams {
-  type: "movie";
+  type: 'movie';
   query?: string;
   language?: string;
   page?: number;
@@ -100,7 +100,7 @@ export interface DiscoverMovieParams {
 }
 
 export interface DiscoverTvParams {
-  type: "tv";
+  type: 'tv';
   query?: string;
   language?: string;
   page?: number;

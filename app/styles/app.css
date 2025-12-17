@@ -1,6 +1,6 @@
 :root {
   isolation: isolate; /* Create a new stacking context for Base UI */
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
