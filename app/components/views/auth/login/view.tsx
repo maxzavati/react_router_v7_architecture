@@ -5,7 +5,7 @@ import { Button } from '~/components/ui/button';
 import { Loader } from '~/components/ui/loader';
 import { useAuthLoginViewModel } from './view-model';
 import { Message } from '~/components/ui/message';
-import backgroundImage from '/public/movies.png';
+import backgroundImage from '/public/movies-bg-03.webp';
 
 export function AuthLoginView() {
   const { isSubmitting, isError } = useAuthLoginViewModel();

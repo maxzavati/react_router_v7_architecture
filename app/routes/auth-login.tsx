@@ -1,6 +1,9 @@
+import {
+  loginLoaderModel,
+  authLoginActionModel,
+} from '~/components/views/auth/login/model';
 import type { Route } from './+types/auth-connect';
 import { AuthLoginView } from '~/components/views/auth/login/view';
-import { authLoginModel } from '~/components/views/auth/login/model';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -10,14 +13,11 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function action({ request }: Route.ActionArgs) {
-  const formData = await request.formData();
-  const result = await authLoginModel({ request, formData });
+  return await authLoginActionModel({ request });
+}
 
-  if (result.type == 'error') {
-    throw result.response;
-  }
-
-  return result.redirect;
+export async function loader({ request }: Route.LoaderArgs) {
+  return await loginLoaderModel({ request });
 }
 
 export default function AuthLoginRoute() {

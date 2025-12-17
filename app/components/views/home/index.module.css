@@ -29,7 +29,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/public/movies.png');
+  background-image: url('/public/movies-bg-02.webp');
   background-size: cover;
   background-position: center top;
   z-index: -2;

@@ -1,7 +1,7 @@
 import { Form } from 'react-router';
 import styles from './index.module.css';
 import { Button } from '~/components/ui/button';
-import backgroundImage from '/public/movies.png';
+import backgroundImage from '/public/movies-bg-01.webp';
 import { Message } from '~/components/ui/message';
 import { useAuthConnectViewModel } from './view-model';
 
