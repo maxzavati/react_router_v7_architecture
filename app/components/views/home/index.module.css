@@ -1,15 +1,72 @@
 .main {
   min-height: 100svh;
-  padding: 40px;
 }
 
 .section {
   padding: 20px 0;
 }
 
-.backgroundImage {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  object-position: center bottom;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 82px;
+}
+
+.heroSection {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: clamp(250px, 55vw, 250px);
+  padding: clamp(2rem, 6vw, 4rem);
+  text-align: center;
+}
+
+.heroSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/public/movies.png');
+  background-size: cover;
+  background-position: center top;
+  z-index: -2;
+}
+
+.heroSection::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 9, 16, 0.78),
+    rgba(9, 9, 16, 0.88)
+  );
+  z-index: -1;
+}
+
+.heroContent {
+  display: grid;
+  gap: 1.5rem;
+  justify-items: center;
+  color: var(--color-gray-50);
+}
+
+.heroContent h1 {
+  font-weight: 600;
+  color: var(--color-gray-900);
+}
+
+.searchForm {
+  width: 500px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.searchInput {
+  color: var(--color-gray-50) !important;
+  background-color: var(--color-gray-900) !important;
 }

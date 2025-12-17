@@ -19,7 +19,7 @@ export async function authMiddleware({ request, context }: Route.ActionArgs) {
     return;
   }
 
-  if (!sessionId) {
+  if (pathname.startsWith('/profile') && !sessionId) {
     throw redirect('/auth/connect');
   }
 }
@@ -27,7 +27,7 @@ export async function authMiddleware({ request, context }: Route.ActionArgs) {
 // Client-side timing middleware
 export async function timingMiddleware(
   { context }: Route.ActionArgs,
-  next: () => Promise<Record<string, DataStrategyResult>>,
+  next: () => Promise<Record<string, DataStrategyResult>>
 ) {
   const start = performance.now();
   await next();

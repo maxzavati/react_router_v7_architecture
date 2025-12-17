@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link, useRouteLoaderData } from 'react-router';
 import styles from './index.module.css';
 import HeartIcon from '~/assets/icons/heart.svg?react';
 // import HeartFilledIcon from "~/assets/icons/heart-filled.svg?react";
@@ -11,6 +11,8 @@ interface ItemCardProps {
 }
 
 export function MediaCard({ image, name, link, onFavorite }: ItemCardProps) {
+  const { user } = useRouteLoaderData('root');
+
   function handleFavoriteClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     event.stopPropagation();
@@ -19,7 +21,7 @@ export function MediaCard({ image, name, link, onFavorite }: ItemCardProps) {
 
   return (
     <article className={styles.article}>
-      {onFavorite ? (
+      {onFavorite && user?.sessionId ? (
         <button
           type="button"
           className={styles.favoriteButton}

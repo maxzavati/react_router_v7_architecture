@@ -1,0 +1,11 @@
+.x {
+  width: 100%;
+  height: 1px;
+  border: 0.5px solid var(--color-gray-400);
+}
+
+.y {
+  height: 100%;
+  width: 1px;
+  border: 0.5px solid var(--color-gray-400);
+}

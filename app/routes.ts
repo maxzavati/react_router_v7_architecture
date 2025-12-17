@@ -5,4 +5,5 @@ export default [
   route('/auth/connect', 'routes/auth-connect.tsx'),
   route('/auth/login', 'routes/auth-login.tsx'),
   route('/:mediaType/:id', 'routes/media-details.tsx'),
+  route('/profile', 'routes/profile.tsx'),
 ] satisfies RouteConfig;
