@@ -2,6 +2,7 @@ import type { Route } from '../+types/root';
 import { userContext } from '~/contexts/user';
 import { sessionIdCookie } from '~/apis/auth/utils';
 import { redirect, type DataStrategyResult } from 'react-router';
+import { getAccountDetailsApi } from '~/apis/user/endpoints';
 
 // Server-side Authentication Middleware
 export async function authMiddleware({ request, context }: Route.ActionArgs) {
@@ -10,7 +11,12 @@ export async function authMiddleware({ request, context }: Route.ActionArgs) {
   const sessionId: string | undefined =
     await sessionIdCookie.parse(cookieHeader);
 
-  context.set(userContext, { sessionId });
+  context.set(userContext, { sessionId: sessionId, account: null });
+
+  if (sessionId) {
+    const account = await getAccountDetailsApi({ session_id: sessionId });
+    context.set(userContext, { sessionId, account });
+  }
 
   if (pathname.startsWith('/auth')) {
     if (sessionId) {

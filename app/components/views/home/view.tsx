@@ -5,7 +5,7 @@ import { useHomeViewModel } from './view-model';
 import { Loader } from '~/components/ui/loader';
 import { posterPath } from '~/apis/media/utils';
 import { Button } from '~/components/ui/button';
-import { MediaCard } from '~/components/ui/media-card';
+import { MediaCard } from '~/components/media-card/view';
 import { ErrorSection } from '~/components/ui/error-section';
 import { MediaSection } from '~/components/templates/media-section';
 
@@ -53,10 +53,11 @@ export function HomeView() {
             renderItem={(movie) => (
               <MediaCard
                 key={movie.id}
+                mediaId={movie.id}
                 name={movie.title}
+                mediaType="movie"
                 link={`/movies/${movie.id}`}
                 image={posterPath(movie.poster_path)}
-                onFavorite={() => {}}
               />
             )}
           />
@@ -69,6 +70,8 @@ export function HomeView() {
               <MediaCard
                 key={movie.id}
                 name={movie.title}
+                mediaId={movie.id}
+                mediaType="movie"
                 link={`/movies/${movie.id}`}
                 image={posterPath(movie.poster_path)}
               />
@@ -82,7 +85,9 @@ export function HomeView() {
             renderItem={(show) => (
               <MediaCard
                 key={show.id}
+                mediaId={show.id}
                 name={show.name}
+                mediaType="tv"
                 link={`/tv-shows/${show.id}`}
                 image={posterPath(show.poster_path)}
               />
@@ -96,7 +101,9 @@ export function HomeView() {
             renderItem={(show) => (
               <MediaCard
                 key={show.id}
+                mediaId={show.id}
                 name={show.name}
+                mediaType="tv"
                 link={`/tv-shows/${show.id}`}
                 image={posterPath(show.poster_path)}
               />
