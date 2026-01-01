@@ -10,10 +10,6 @@ import type {
   UpdateFavoriteResponse,
 } from './types';
 
-/**
- * Get account details (requires session_id)
- * https://developer.themoviedb.org/reference/account-details
- */
 export async function getAccountDetailsApi({
   session_id,
 }: GetAccountDetailsParams): Promise<AccountDetailsResponse | null> {
@@ -23,10 +19,6 @@ export async function getAccountDetailsApi({
   return data;
 }
 
-/**
- * Mark/unmark title as favorite
- * https://developer.themoviedb.org/reference/account-mark-as-favorite
- */
 export async function updateFavoriteApi({
   account_id,
   session_id,
@@ -43,10 +35,6 @@ export async function updateFavoriteApi({
   return data;
 }
 
-/**
- * List favorite movies
- * https://developer.themoviedb.org/reference/account-get-favorite-movies
- */
 export async function getFavoriteMoviesApi({
   account_id,
   session_id,
@@ -59,10 +47,6 @@ export async function getFavoriteMoviesApi({
   return data;
 }
 
-/**
- * List favorite TV shows
- * https://developer.themoviedb.org/reference/account-get-favorite-tv-shows
- */
 export async function getFavoriteTvShowsApi({
   account_id,
   session_id,

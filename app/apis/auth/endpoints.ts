@@ -15,7 +15,7 @@ import type {
  */
 export async function createRequestTokenApi(): Promise<CreateRequestTokenResponse> {
   const { data } = await api.get<CreateRequestTokenResponse>(
-    '/authentication/token/new',
+    '/authentication/token/new'
   );
   return data;
 }
@@ -25,11 +25,11 @@ export async function createRequestTokenApi(): Promise<CreateRequestTokenRespons
  * https://developer.themoviedb.org/reference/authentication-validate-token-with-login
  */
 export async function validateWithLoginApi(
-  params: ValidateWithLoginParams,
+  params: ValidateWithLoginParams
 ): Promise<ValidateWithLoginResponse> {
   const { data } = await api.post<ValidateWithLoginResponse>(
     '/authentication/token/validate_with_login',
-    params,
+    params
   );
   return data;
 }
@@ -39,11 +39,11 @@ export async function validateWithLoginApi(
  * https://developer.themoviedb.org/reference/authentication-create-session
  */
 export async function createSessionApi(
-  params: CreateSessionParams,
+  params: CreateSessionParams
 ): Promise<CreateSessionResponse> {
   const { data } = await api.post<CreateSessionResponse>(
     '/authentication/session/new',
-    params,
+    params
   );
   return data;
 }
@@ -53,11 +53,11 @@ export async function createSessionApi(
  * https://developer.themoviedb.org/reference/authentication-delete-session
  */
 export async function deleteSessionApi(
-  params: DeleteSessionParams,
+  params: DeleteSessionParams
 ): Promise<DeleteSessionResponse> {
   const { data } = await api.delete<DeleteSessionResponse>(
     '/authentication/session',
-    { data: params },
+    { data: params }
   );
   return data;
 }

@@ -8,8 +8,6 @@ import type {
   PopularTvShowsResponse,
   GetUpcomingTvShowsParams,
   UpcomingTvShowsResponse,
-  DiscoverMovieParams,
-  DiscoverTvParams,
   DiscoverMovieResponse,
   DiscoverTvResponse,
   SearchTitlesParams,
@@ -20,7 +18,7 @@ import type {
 } from './types';
 
 export async function getUpcomingMovieListApi(
-  params?: GetUpcomingMovieListParams,
+  params?: GetUpcomingMovieListParams
 ): Promise<UpcomingMoviesResponse> {
   const { data } = await api.get<UpcomingMoviesResponse>('/movie/upcoming', {
     params,
@@ -29,7 +27,7 @@ export async function getUpcomingMovieListApi(
 }
 
 export async function getPopularMoviesApi(
-  params?: GetPopularMoviesParams,
+  params?: GetPopularMoviesParams
 ): Promise<PopularMoviesResponse> {
   const { data } = await api.get<PopularMoviesResponse>('/movie/popular', {
     params,
@@ -38,7 +36,7 @@ export async function getPopularMoviesApi(
 }
 
 export async function getPopularTvShowsApi(
-  params?: GetPopularTvShowsParams,
+  params?: GetPopularTvShowsParams
 ): Promise<PopularTvShowsResponse> {
   const { data } = await api.get<PopularTvShowsResponse>('/tv/popular', {
     params,
@@ -47,7 +45,7 @@ export async function getPopularTvShowsApi(
 }
 
 export async function getUpcomingTvShowsApi(
-  params?: GetUpcomingTvShowsParams,
+  params?: GetUpcomingTvShowsParams
 ): Promise<UpcomingTvShowsResponse> {
   const { data } = await api.get<UpcomingTvShowsResponse>('/tv/on_the_air', {
     params,
@@ -55,14 +53,8 @@ export async function getUpcomingTvShowsApi(
   return data;
 }
 
-export function searchTitlesApi(
-  params: DiscoverMovieParams,
-): Promise<DiscoverMovieResponse>;
-export function searchTitlesApi(
-  params: DiscoverTvParams,
-): Promise<DiscoverTvResponse>;
 export async function searchTitlesApi(
-  params: SearchTitlesParams,
+  params: SearchTitlesParams
 ): Promise<DiscoverMovieResponse | DiscoverTvResponse> {
   const { type, query, ...rest } = params;
   const endpoint = type == 'movie' ? '/discover/movie' : '/discover/tv';

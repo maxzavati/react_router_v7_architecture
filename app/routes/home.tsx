@@ -10,8 +10,8 @@ export async function action(args: Route.ActionArgs) {
   return homeClientAction(args);
 }
 
-export async function loader() {
-  return await homeLoader();
+export async function loader(args: Route.LoaderArgs) {
+  return await homeLoader(args);
 }
 
 export default function HomeRoute() {

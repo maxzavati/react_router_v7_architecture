@@ -58,7 +58,11 @@ export function MediaCard({
           disabled={isSubmitting}
           onClick={handleFavoriteClick}
         >
-          {optimisticFavorite ? <HeartFilledIcon /> : <HeartIcon />}
+          {isFavorite || optimisticFavorite ? (
+            <HeartFilledIcon />
+          ) : (
+            <HeartIcon />
+          )}
         </button>
       ) : null}
       <img className={styles.image} src={image} alt={name} />

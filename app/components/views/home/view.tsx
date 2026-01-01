@@ -57,6 +57,7 @@ export function HomeView() {
                 name={movie.title}
                 mediaType="movie"
                 link={`/movies/${movie.id}`}
+                isFavorite={movie.isFavorite}
                 image={posterPath(movie.poster_path)}
               />
             )}
@@ -73,6 +74,7 @@ export function HomeView() {
                 mediaId={movie.id}
                 mediaType="movie"
                 link={`/movies/${movie.id}`}
+                isFavorite={movie.isFavorite}
                 image={posterPath(movie.poster_path)}
               />
             )}
@@ -89,6 +91,7 @@ export function HomeView() {
                 name={show.name}
                 mediaType="tv"
                 link={`/tv-shows/${show.id}`}
+                isFavorite={show.isFavorite}
                 image={posterPath(show.poster_path)}
               />
             )}
@@ -105,6 +108,7 @@ export function HomeView() {
                 name={show.name}
                 mediaType="tv"
                 link={`/tv-shows/${show.id}`}
+                isFavorite={show.isFavorite}
                 image={posterPath(show.poster_path)}
               />
             )}
