@@ -5,6 +5,14 @@ export interface GetAccountDetailsParams {
 export interface AccountDetailsResponse {
   id: number;
   name: string;
+  avatar: {
+    tmdb: {
+      avatar_path: string | null;
+    };
+    gravatar: {
+      hash: string | null;
+    };
+  };
   username: string;
   include_adult: boolean;
   iso_3166_1: string | null;

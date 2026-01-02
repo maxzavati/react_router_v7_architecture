@@ -1,0 +1,71 @@
+.main {
+  min-height: 100svh;
+}
+
+.heroSection {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: clamp(250px, 55vw, 250px);
+  padding: clamp(2rem, 6vw, 4rem);
+  text-align: center;
+}
+
+.heroSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/public/movies-bg-02.webp');
+  background-size: cover;
+  background-position: center top;
+  z-index: -2;
+}
+
+.heroSection::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 9, 16, 0.78),
+    rgba(9, 9, 16, 0.88)
+  );
+  z-index: -1;
+}
+
+.heroContent {
+  display: grid;
+  gap: 1.5rem;
+  justify-items: center;
+  color: var(--color-gray-50);
+}
+
+.heroContent h1 {
+  font-weight: 600;
+  color: var(--color-gray-900);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 82px;
+}
+
+.avatarCircle {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-color: #1f1f1f;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

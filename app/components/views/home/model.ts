@@ -4,33 +4,28 @@ import {
   updateFavoriteApi,
 } from '~/apis/user/endpoints';
 import {
-  getPopularMoviesApi,
-  getPopularTvShowsApi,
-  getUpcomingMovieListApi,
-  getUpcomingTvShowsApi,
+  getTopRatedMoviesApi,
+  getTopRatedTvShowsApi,
+  getTrendingAllApi,
 } from '~/apis/media/endpoints';
 import { userContext } from '~/contexts/user';
+import { fetchAllPages } from '~/apis/utils';
 import { sessionIdCookie } from '~/apis/auth/utils';
 import type { Route } from '../../../routes/+types/home';
 
 const params = { language: 'en-US', page: 1 };
 
-export async function homeLoader({ request, context }: Route.LoaderArgs) {
+export async function homeLoaderModel({ request, context }: Route.LoaderArgs) {
   const cookieHeader = request.headers.get('cookie');
   const sessionId = await sessionIdCookie.parse(cookieHeader);
 
   try {
-    const [
-      popularMoviesRes,
-      upcomingMoviesRes,
-      popularTvShowsRes,
-      upcomingTvShowsRes,
-    ] = await Promise.all([
-      getPopularMoviesApi(params),
-      getUpcomingMovieListApi(params),
-      getPopularTvShowsApi(params),
-      getUpcomingTvShowsApi(params),
-    ]);
+    const [trendingAllRes, topRatedMoviesRes, topRatedTvShowsRes] =
+      await Promise.all([
+        getTrendingAllApi(params),
+        getTopRatedMoviesApi(params),
+        getTopRatedTvShowsApi(params),
+      ]);
 
     const user = context.get(userContext);
 
@@ -38,62 +33,57 @@ export async function homeLoader({ request, context }: Route.LoaderArgs) {
     const favoriteTvShowIds = new Set<number>();
 
     if (sessionId && user?.account) {
+      const accountId = user.account.id;
+      const baseFavoriteParams = {
+        account_id: accountId,
+        session_id: sessionId,
+        sort_by: 'created_at.desc',
+      };
+
       const [favoriteMovies, favoriteTvShows] = await Promise.all([
-        getFavoriteMoviesApi({
-          account_id: user.account.id,
-          session_id: sessionId,
-          sort_by: 'created_at.desc',
-        }),
-        getFavoriteTvShowsApi({
-          account_id: user.account.id,
-          session_id: sessionId,
-          sort_by: 'created_at.desc',
-        }),
+        fetchAllPages((page) =>
+          getFavoriteMoviesApi({ ...baseFavoriteParams, page })
+        ),
+        fetchAllPages((page) =>
+          getFavoriteTvShowsApi({ ...baseFavoriteParams, page })
+        ),
       ]);
 
-      favoriteMovies.results.forEach((movie) => favoriteMovieIds.add(movie.id));
-      favoriteTvShows.results.forEach((show) => favoriteTvShowIds.add(show.id));
+      favoriteMovies.forEach((movie) => favoriteMovieIds.add(movie.id));
+      favoriteTvShows.forEach((show) => favoriteTvShowIds.add(show.id));
     }
 
-    const popularMovies = {
-      ...popularMoviesRes,
-      results: popularMoviesRes.results.map((movie) => ({
+    const trendingAll = {
+      ...trendingAllRes,
+      results: trendingAllRes.results.map((item) => ({
+        ...item,
+        isFavorite:
+          favoriteMovieIds.has(item.id) || favoriteTvShowIds.has(item.id),
+      })),
+    };
+
+    const topRatedMovies = {
+      ...topRatedMoviesRes,
+      results: topRatedMoviesRes.results.map((movie) => ({
         ...movie,
         isFavorite: favoriteMovieIds.has(movie.id),
       })),
     };
 
-    const upcomingMovies = {
-      ...upcomingMoviesRes,
-      results: upcomingMoviesRes.results.map((movie) => ({
-        ...movie,
-        isFavorite: favoriteMovieIds.has(movie.id),
-      })),
-    };
-
-    const popularTvShows = {
-      ...popularTvShowsRes,
-      results: popularTvShowsRes.results.map((show) => ({
-        ...show,
-        isFavorite: favoriteTvShowIds.has(show.id),
-      })),
-    };
-
-    const upcomingTvShows = {
-      ...upcomingTvShowsRes,
-      results: upcomingTvShowsRes.results.map((show) => ({
+    const topRatedTvShows = {
+      ...topRatedTvShowsRes,
+      results: topRatedTvShowsRes.results.map((show) => ({
         ...show,
         isFavorite: favoriteTvShowIds.has(show.id),
       })),
     };
 
     return {
-      popularMovies,
-      upcomingMovies,
-      popularTvShows,
-      upcomingTvShows,
+      trendingAll,
       favoriteMovieIds,
       favoriteTvShowIds,
+      topRatedMovies,
+      topRatedTvShows,
     };
   } catch (error) {
     return {
@@ -114,7 +104,7 @@ export async function homeClientAction({ request, context }: Route.ActionArgs) {
 
   if (user?.sessionId && mediaType && user?.account) {
     return await updateFavoriteApi({
-      account_id: user?.account?.id,
+      account_id: user.account.id,
       session_id: user.sessionId,
       media_type: mediaType,
       media_id: mediaId,

@@ -1,5 +1,6 @@
-import type { Route } from './+types/media-details';
+import type { Route } from './+types/profile';
 import { ProfileView } from '~/components/views/profile/view';
+import { profileLoaderModel } from '~/components/views/profile/model';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,7 +9,9 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({ params }: Route.LoaderArgs) {}
+export async function loader(args: Route.LoaderArgs) {
+  return await profileLoaderModel(args);
+}
 
 export default function ProfileRoute() {
   return <ProfileView />;

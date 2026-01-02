@@ -14,10 +14,9 @@ export function HomeView() {
     isLoading,
     isError,
     errorMessage,
-    popularMovies,
-    upcomingMovies,
-    popularTvShows,
-    upcomingTvShows,
+    trendingAll,
+    topRatedMovies,
+    topRatedTvShows,
   } = useHomeViewModel();
 
   if (isError) {
@@ -47,9 +46,30 @@ export function HomeView() {
 
         <div className={styles.container}>
           <MediaSection
-            title="Popular Movies"
-            seeAllHref="/movies/popular"
-            items={popularMovies?.results}
+            title="Trending This Week"
+            seeAllHref="/trending"
+            items={trendingAll?.results}
+            renderItem={(item) => (
+              <MediaCard
+                key={item.id}
+                mediaId={item.id}
+                name={
+                  'movie' in item
+                    ? item.title || item.name || ''
+                    : item.name || ''
+                }
+                mediaType="movie"
+                link={`/movies/${item.id}`}
+                isFavorite={item.isFavorite}
+                image={posterPath(item.poster_path)}
+              />
+            )}
+          />
+
+          <MediaSection
+            title="Top Rated Movies"
+            seeAllHref="/movies/top-rated"
+            items={topRatedMovies?.results}
             renderItem={(movie) => (
               <MediaCard
                 key={movie.id}
@@ -64,43 +84,9 @@ export function HomeView() {
           />
 
           <MediaSection
-            title="Upcoming Movies"
-            items={upcomingMovies?.results}
-            seeAllHref="/movies/upcoming"
-            renderItem={(movie) => (
-              <MediaCard
-                key={movie.id}
-                name={movie.title}
-                mediaId={movie.id}
-                mediaType="movie"
-                link={`/movies/${movie.id}`}
-                isFavorite={movie.isFavorite}
-                image={posterPath(movie.poster_path)}
-              />
-            )}
-          />
-
-          <MediaSection
-            title="Popular TV Shows"
-            seeAllHref="/tv-shows/popular"
-            items={popularTvShows?.results}
-            renderItem={(show) => (
-              <MediaCard
-                key={show.id}
-                mediaId={show.id}
-                name={show.name}
-                mediaType="tv"
-                link={`/tv-shows/${show.id}`}
-                isFavorite={show.isFavorite}
-                image={posterPath(show.poster_path)}
-              />
-            )}
-          />
-
-          <MediaSection
-            title="Upcoming TV Shows"
-            seeAllHref="/tv-shows/upcoming"
-            items={upcomingTvShows?.results}
+            title="Top Rated TV Shows"
+            seeAllHref="/tv-shows/top-rated"
+            items={topRatedTvShows?.results}
             renderItem={(show) => (
               <MediaCard
                 key={show.id}

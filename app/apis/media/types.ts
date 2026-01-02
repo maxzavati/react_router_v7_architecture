@@ -219,3 +219,108 @@ export interface TvShowDetails extends TvShowSummary {
   tagline: string | null;
   type: string;
 }
+
+export type TrendingMediaType = 'all' | 'movie' | 'tv' | 'person';
+export type TrendingTimeWindow = 'day' | 'week';
+
+export interface TrendingItem {
+  id: number;
+  media_type: TrendingMediaType;
+  overview: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+  title?: string;
+  name?: string;
+  release_date?: string;
+  first_air_date?: string;
+  vote_average: number;
+  vote_count: number;
+  popularity: number;
+}
+
+export interface TrendingThisWeekResponse {
+  page: number;
+  results: TrendingItem[];
+  total_pages: number;
+  total_results: number;
+}
+
+export interface TrendingThisWeekParams {
+  mediaType?: TrendingMediaType;
+  timeWindow?: TrendingTimeWindow;
+  language?: string;
+  page?: number;
+  region?: string;
+}
+
+export interface TrailerVideo {
+  id: string;
+  key: string;
+  name: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: string;
+  iso_639_1: string;
+  iso_3166_1: string;
+}
+
+export interface VideoResult {
+  id: string;
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: string;
+}
+
+export interface MovieVideosResponse {
+  id: number;
+  results: VideoResult[];
+}
+
+export interface TvVideosResponse {
+  id: number;
+  results: VideoResult[];
+}
+
+export interface GetMovieVideosParams {
+  movie_id: number;
+  language?: string;
+}
+
+export interface GetTvVideosParams {
+  tv_id: number;
+  language?: string;
+}
+
+export interface GetTopRatedMoviesParams {
+  language?: string;
+  page?: number;
+  region?: string;
+}
+
+export interface TopRatedMoviesResponse {
+  page: number;
+  results: MovieSummary[];
+  total_pages: number;
+  total_results: number;
+}
+
+export interface GetTopRatedTvShowsParams {
+  language?: string;
+  page?: number;
+  timezone?: string;
+}
+
+export interface TopRatedTvShowsResponse {
+  page: number;
+  results: TvShowSummary[];
+  total_pages: number;
+  total_results: number;
+}
