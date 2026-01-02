@@ -1,5 +1,5 @@
 import { useLoaderData, useNavigation } from 'react-router';
-import { loader } from '~/routes/profile';
+import type { loader } from '~/routes/profile';
 
 export function useProfileViewModel() {
   const loaderData = useLoaderData<typeof loader>();

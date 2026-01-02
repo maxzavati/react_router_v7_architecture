@@ -95,6 +95,8 @@ export async function homeLoaderModel({ request, context }: Route.LoaderArgs) {
 }
 
 export async function homeClientAction({ request, context }: Route.ActionArgs) {
+  const cookieHeader = request.headers.get('cookie');
+  const sessionId = await sessionIdCookie.parse(cookieHeader);
   const formData = await request.formData();
   const mediaId = Number(formData.get('mediaId'));
   const mediaType = formData.get('mediaType') as 'movie' | 'tv';
@@ -102,10 +104,10 @@ export async function homeClientAction({ request, context }: Route.ActionArgs) {
 
   const user = context.get(userContext);
 
-  if (user?.sessionId && mediaType && user?.account) {
+  if (sessionId && mediaType && user?.account) {
     return await updateFavoriteApi({
       account_id: user.account.id,
-      session_id: user.sessionId,
+      session_id: sessionId,
       media_type: mediaType,
       media_id: mediaId,
       favorite,
