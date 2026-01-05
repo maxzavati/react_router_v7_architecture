@@ -25,6 +25,7 @@ export async function mediaDetailsModel({ mediaType, id }: DetailsModelParams) {
     }
 
     const numericId = Number(id);
+
     if (!Number.isFinite(numericId)) {
       throw new Error(`Invalid id: ${id}`);
     }

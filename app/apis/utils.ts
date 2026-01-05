@@ -29,3 +29,9 @@ export async function fetchAllPages<T>(
 
   return aggregated;
 }
+
+export function posterPath(path: string | null) {
+  return path
+    ? `${import.meta.env.VITE_IMAGE_BASE_URL}/w500${path}`
+    : 'https://via.placeholder.com/500x750?text=No+Image';
+}

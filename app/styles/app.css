@@ -19,7 +19,8 @@
   --color-indigo: #5472e4;
   --color-green: #30a46c;
   --color-amber: #ffc53d;
-  --color-background: #111111;
+  --color-background-50: #111111;
+  --color-background-100: #191919;
   --color-foreground: oklch(90% 0.008 264);
 
   --color-gray-50: oklch(98% 0.25% 264deg);
@@ -57,7 +58,7 @@ body {
   min-width: 320px;
   line-height: 1.5;
   color: var(--color-foreground);
-  background-color: var(--color-background);
+  background-color: var(--color-background-50);
 }
 
 button {

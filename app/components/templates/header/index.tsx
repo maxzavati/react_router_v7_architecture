@@ -1,7 +1,7 @@
 import { Form, Link, useNavigate, useRouteLoaderData } from 'react-router';
 import styles from './index.module.css';
 import { Button } from '~/components/ui/button';
-import RouterIcon from '/public/router-logo.svg?react';
+import RouterIcon from '~/assets/icons/router-logo.svg?react';
 
 export function Header() {
   const navigate = useNavigate();

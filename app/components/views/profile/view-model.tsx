@@ -8,7 +8,7 @@ export function useProfileViewModel() {
   const tmdbAvatar = loaderData.accountDetails?.avatar?.tmdb?.avatar_path;
   const gravatarHash = loaderData.accountDetails?.avatar?.gravatar?.hash;
   const avatarUrl = tmdbAvatar
-    ? `https://image.tmdb.org/t/p/w185${tmdbAvatar}`
+    ? `${import.meta.env.VITE_IMAGE_BASE_URL}/w185${tmdbAvatar}`
     : gravatarHash
       ? `https://www.gravatar.com/avatar/${gravatarHash}?s=185&d=identicon`
       : undefined;

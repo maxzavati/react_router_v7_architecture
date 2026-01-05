@@ -1,7 +1,8 @@
-import { Link, useFetcher, useRouteLoaderData } from 'react-router';
+import { Link } from 'react-router';
+import styles from './index.module.css';
+import { useMediaCardViewModel } from './view-model';
 import HeartIcon from '~/assets/icons/heart.svg?react';
 import HeartFilledIcon from '~/assets/icons/heart-filled.svg?react';
-import styles from './index.module.css';
 
 interface ItemCardProps {
   image: string;
@@ -20,29 +21,8 @@ export function MediaCard({
   mediaType,
   isFavorite = false,
 }: ItemCardProps) {
-  const { user } = useRouteLoaderData('root') as {
-    user?: { sessionId: string | null };
-  };
-  const fetcher = useFetcher<{ favorite: boolean }>();
-
-  const submittedFavorite = fetcher.formData?.get('favorite');
-  const optimisticFavorite =
-    typeof submittedFavorite === 'string'
-      ? submittedFavorite === 'true'
-      : (fetcher.data?.favorite ?? isFavorite);
-
-  const isSubmitting = fetcher.state !== 'idle';
-
-  function handleFavoriteClick() {
-    fetcher.submit(
-      {
-        mediaId: mediaId.toString(),
-        mediaType,
-        favorite: (!optimisticFavorite).toString(),
-      },
-      { method: 'post' }
-    );
-  }
+  const { user, optimisticFavorite, isSubmitting, handleFavoriteClick } =
+    useMediaCardViewModel({ mediaId, mediaType, isFavorite });
 
   return (
     <article className={styles.article}>

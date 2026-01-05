@@ -9,10 +9,6 @@ import type {
   DeleteSessionResponse,
 } from './types';
 
-/**
- * Step 1: Create a request token
- * https://developer.themoviedb.org/reference/authentication-create-request-token
- */
 export async function createRequestTokenApi(): Promise<CreateRequestTokenResponse> {
   const { data } = await api.get<CreateRequestTokenResponse>(
     '/authentication/token/new'
@@ -20,10 +16,6 @@ export async function createRequestTokenApi(): Promise<CreateRequestTokenRespons
   return data;
 }
 
-/**
- * Step 2 (no redirect): Validate the request token using TMDB username/password
- * https://developer.themoviedb.org/reference/authentication-validate-token-with-login
- */
 export async function validateWithLoginApi(
   params: ValidateWithLoginParams
 ): Promise<ValidateWithLoginResponse> {
@@ -34,10 +26,6 @@ export async function validateWithLoginApi(
   return data;
 }
 
-/**
- * Step 3: Create a session using the validated request token
- * https://developer.themoviedb.org/reference/authentication-create-session
- */
 export async function createSessionApi(
   params: CreateSessionParams
 ): Promise<CreateSessionResponse> {
@@ -48,10 +36,6 @@ export async function createSessionApi(
   return data;
 }
 
-/**
- * Delete a session (logout)
- * https://developer.themoviedb.org/reference/authentication-delete-session
- */
 export async function deleteSessionApi(
   params: DeleteSessionParams
 ): Promise<DeleteSessionResponse> {

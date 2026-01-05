@@ -6,13 +6,14 @@
   padding: 20px 0;
 }
 
+.bgWrapper {
+  background: var(--color-background-100);
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 100px 40px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 82px;
+  padding: 60px 40px 40px 40px;
 }
 
 .heroSection {
@@ -29,7 +30,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/public/movies-bg-02.webp');
+  background-image: url('/movies-bg-02.webp');
   background-size: cover;
   background-position: center top;
   z-index: -2;
@@ -69,4 +70,15 @@
 .searchInput {
   color: var(--color-gray-50) !important;
   background-color: var(--color-gray-900) !important;
+}
+
+.searchButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.searchButton svg {
+  height: 20px;
+  width: auto;
 }

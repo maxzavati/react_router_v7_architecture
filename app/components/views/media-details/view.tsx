@@ -3,7 +3,7 @@ import { Loader } from '~/components/ui/loader';
 import { useMediaDetailsViewModel } from './view-model';
 import { ErrorSection } from '~/components/ui/error-section';
 
-const TMDB_IMAGE_BASE = import.meta.env.VITE_IMAGE_BASE;
+const TMDB_IMAGE_BASE = import.meta.env.VITE_IMAGE_BASE_URL;
 
 export function MediaDetailsView() {
   const { isLoading, isError, errorMessage, mediaType, data } =

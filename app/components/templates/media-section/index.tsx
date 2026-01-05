@@ -8,6 +8,7 @@ interface MediaSectionProps<T> {
   items?: T[] | null;
   seeAllHref?: string;
   renderItem: (item: T) => React.ReactNode;
+  className?: string;
 }
 
 export function MediaSection<T>({
@@ -15,12 +16,13 @@ export function MediaSection<T>({
   items,
   seeAllHref,
   renderItem,
+  className,
 }: MediaSectionProps<T>) {
   const list = Array.isArray(items) ? items : [];
   const hasItems = list.length > 0;
 
   return (
-    <section className={styles.section}>
+    <section className={`${styles.mediaSection} ${className || ''}`}>
       <div className={styles.sectionHeader}>
         <h2>{title}</h2>
         {seeAllHref ? (

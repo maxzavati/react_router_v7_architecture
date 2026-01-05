@@ -1,12 +1,12 @@
-import styles from './index.module.css';
-import { Loader } from '~/components/ui/loader';
-import { useProfileViewModel } from './view-model';
-import { ErrorSection } from '~/components/ui/error-section';
-import { MediaSection } from '~/components/templates/media-section';
-import { MediaCard } from '~/components/media-card/view';
-import { posterPath } from '~/apis/media/utils';
 import { Suspense } from 'react';
 import { Await } from 'react-router';
+import styles from './index.module.css';
+import { posterPath } from '~/apis/utils';
+import { Loader } from '~/components/ui/loader';
+import { useProfileViewModel } from './view-model';
+import { MediaCard } from '~/components/media-card/view';
+import { ErrorSection } from '~/components/ui/error-section';
+import { MediaSection } from '~/components/templates/media-section';
 
 export function ProfileView() {
   const {

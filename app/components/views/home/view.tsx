@@ -1,11 +1,12 @@
 import { Form } from 'react-router';
 import styles from './index.module.css';
 import Field from '~/components/ui/field';
+import { posterPath } from '~/apis/utils';
 import { useHomeViewModel } from './view-model';
 import { Loader } from '~/components/ui/loader';
-import { posterPath } from '~/apis/media/utils';
 import { Button } from '~/components/ui/button';
 import { MediaCard } from '~/components/media-card/view';
+import SearchIcon from '~/assets/icons/search.svg?react';
 import { ErrorSection } from '~/components/ui/error-section';
 import { MediaSection } from '~/components/templates/media-section';
 
@@ -37,53 +38,63 @@ export function HomeView() {
                 type="search"
                 id="home-search"
                 className={styles.searchInput}
-                placeholder="Search movies or TV shows…"
+                placeholder="Movies or TV shows…"
               />
-              <Button type="submit">Search</Button>
+              <Button type="submit" className={styles.searchButton}>
+                <SearchIcon />
+                Search
+              </Button>
             </Form>
           </div>
         </section>
 
-        <div className={styles.container}>
+        <div className={styles.bgWrapper}>
           <MediaSection
+            className={styles.container}
             title="Trending This Week"
             seeAllHref="/trending"
             items={trendingAll?.results}
-            renderItem={(item) => (
-              <MediaCard
-                key={item.id}
-                mediaId={item.id}
-                name={
-                  'movie' in item
-                    ? item.title || item.name || ''
-                    : item.name || ''
-                }
-                mediaType="movie"
-                link={`/movies/${item.id}`}
-                isFavorite={item.isFavorite}
-                image={posterPath(item.poster_path)}
-              />
-            )}
-          />
+            renderItem={(item) => {
+              const cardMediaType = item.media_type === 'tv' ? 'tv' : 'movie';
+              const linkSegment =
+                cardMediaType === 'tv' ? 'tv-shows' : 'movies';
 
-          <MediaSection
-            title="Top Rated Movies"
-            seeAllHref="/movies/top-rated"
-            items={topRatedMovies?.results}
-            renderItem={(movie) => (
-              <MediaCard
-                key={movie.id}
-                mediaId={movie.id}
-                name={movie.title}
-                mediaType="movie"
-                link={`/movies/${movie.id}`}
-                isFavorite={movie.isFavorite}
-                image={posterPath(movie.poster_path)}
-              />
-            )}
+              return (
+                <MediaCard
+                  key={item.id}
+                  mediaId={item.id}
+                  name={item.title || item.name || 'No title'}
+                  mediaType={cardMediaType}
+                  link={`/${linkSegment}/${item.id}`}
+                  isFavorite={item.isFavorite}
+                  image={posterPath(item.poster_path)}
+                />
+              );
+            }}
           />
+        </div>
 
+        <MediaSection
+          className={styles.container}
+          title="Top Rated Movies"
+          seeAllHref="/movies/top-rated"
+          items={topRatedMovies?.results}
+          renderItem={(movie) => (
+            <MediaCard
+              key={movie.id}
+              mediaId={movie.id}
+              name={movie.title}
+              mediaType="movie"
+              link={`/movies/${movie.id}`}
+              isFavorite={movie.isFavorite}
+              image={posterPath(movie.poster_path)}
+            />
+          )}
+        />
+
+        <div className={styles.bgWrapper}>
           <MediaSection
+            className={styles.container}
             title="Top Rated TV Shows"
             seeAllHref="/tv-shows/top-rated"
             items={topRatedTvShows?.results}
