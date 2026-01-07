@@ -1,21 +1,20 @@
+import { redirect } from 'react-router';
 import type { Route } from '../+types/root';
 import { userContext } from '~/contexts/user';
 import { sessionIdCookie } from '~/apis/auth/utils';
-import { redirect, type DataStrategyResult } from 'react-router';
 import { getAccountDetailsApi } from '~/apis/user/endpoints';
 
-// Server-side Authentication Middleware
 export async function authMiddleware({ request, context }: Route.ActionArgs) {
   const pathname = new URL(request.url).pathname;
   const cookieHeader = request.headers.get('Cookie');
   const sessionId: string | undefined =
     await sessionIdCookie.parse(cookieHeader);
 
-  context.set(userContext, { account: null });
-
   if (sessionId) {
     const account = await getAccountDetailsApi({ session_id: sessionId });
-    context.set(userContext, { account });
+    context.set(userContext, { account, sessionId });
+  } else {
+    context.set(userContext, { account: null, sessionId: null });
   }
 
   if (pathname.startsWith('/auth')) {
@@ -28,15 +27,4 @@ export async function authMiddleware({ request, context }: Route.ActionArgs) {
   if (pathname.startsWith('/profile') && !sessionId) {
     throw redirect('/auth/connect');
   }
-}
-
-// Client-side timing middleware
-export async function timingMiddleware(
-  { context }: Route.ActionArgs,
-  next: () => Promise<Record<string, DataStrategyResult>>
-) {
-  const start = performance.now();
-  await next();
-  const duration = performance.now() - start;
-  console.log(`Navigation took ${duration}ms`);
 }

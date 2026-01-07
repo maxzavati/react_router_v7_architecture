@@ -2,7 +2,13 @@ import { createContext } from 'react-router';
 import type { AccountDetailsResponse } from '~/apis/user/types';
 
 interface User {
-  account: AccountDetailsResponse | null | undefined;
+  sessionId: string | null;
+  account: AccountDetailsResponse | null;
 }
 
-export const userContext = createContext<User | null>(null);
+const defaultUser: User = {
+  sessionId: null,
+  account: null,
+};
+
+export const userContext = createContext<User>(defaultUser);

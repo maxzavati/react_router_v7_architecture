@@ -7,12 +7,13 @@ import {
   isRouteErrorResponse,
 } from 'react-router';
 import type { Route } from './+types/root';
-import { authMiddleware, timingMiddleware } from './middlewares/auth';
+import { authMiddleware } from './middlewares/auth';
 import './styles/reset.css';
 import './styles/app.css';
 import { userContext } from './contexts/user';
 import { Footer } from './components/templates/footer';
 import { Header } from './components/templates/header';
+import { timingMiddleware } from './middlewares/timing';
 
 export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
 

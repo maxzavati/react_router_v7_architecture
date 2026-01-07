@@ -27,12 +27,12 @@ export function MediaCard({
   rating,
   isFavorite = false,
 }: ItemCardProps) {
-  const { user, optimisticFavorite, isSubmitting, handleFavoriteClick } =
+  const { sessionId, optimisticFavorite, isSubmitting, handleFavoriteClick } =
     useMediaCardViewModel({ mediaId, mediaType, isFavorite });
 
   return (
     <article className={styles.article}>
-      {user?.sessionId ? (
+      {sessionId ? (
         <button
           type="button"
           className={styles.favoriteButton}

@@ -16,7 +16,7 @@ export async function profileLoaderModel({
   const user = context.get(userContext);
 
   try {
-    if (sessionId && user?.account) {
+    if (sessionId && user.account) {
       const accountId = user.account.id;
       const baseFavoriteParams = {
         account_id: accountId,

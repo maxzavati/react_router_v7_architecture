@@ -32,7 +32,7 @@ export async function homeLoaderModel({ request, context }: Route.LoaderArgs) {
     const favoriteMovieIds = new Set<number>();
     const favoriteTvShowIds = new Set<number>();
 
-    if (sessionId && user?.account) {
+    if (sessionId && user.account) {
       const accountId = user.account.id;
       const baseFavoriteParams = {
         account_id: accountId,

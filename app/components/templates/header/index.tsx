@@ -1,7 +1,7 @@
-import { Form, Link, useNavigate, useRouteLoaderData } from 'react-router';
 import styles from './index.module.css';
 import { Button } from '~/components/ui/button';
 import RouterIcon from '~/assets/icons/router-logo.svg?react';
+import { Form, Link, useNavigate, useRouteLoaderData } from 'react-router';
 
 export function Header() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export function Header() {
         <RouterIcon />
       </Link>
       <nav className={styles.nav}>
-        {user?.sessionId ? (
+        {user.sessionId ? (
           <>
             <Link to="/profile" className={styles.navLink}>
               Profile

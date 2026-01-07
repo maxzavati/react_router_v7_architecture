@@ -11,9 +11,7 @@ export function useMediaCardViewModel({
   mediaType,
   isFavorite,
 }: UseMediaCardVMParams) {
-  const { user } = useRouteLoaderData('root') as {
-    user?: { sessionId: string | null };
-  };
+  const { user } = useRouteLoaderData('root') || {};
   const fetcher = useFetcher<{ favorite: boolean }>();
 
   const submittedFavorite = fetcher.formData?.get('favorite');
@@ -36,5 +34,10 @@ export function useMediaCardViewModel({
     );
   }
 
-  return { user, optimisticFavorite, isSubmitting, handleFavoriteClick };
+  return {
+    sessionId: user.sessionId,
+    optimisticFavorite,
+    isSubmitting,
+    handleFavoriteClick,
+  };
 }
