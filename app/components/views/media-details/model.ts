@@ -3,7 +3,7 @@ import {
   getTvShowDetailsApi,
 } from '~/apis/media/endpoints';
 import { userContext } from '~/contexts/user';
-import { sessionIdCookie } from '~/apis/auth/utils';
+import { getSessionCookie, sessionIdCookie } from '~/apis/auth/utils';
 import { getFavoriteByIdApi } from '~/apis/user/endpoints';
 import type { Route } from '../../../routes/+types/media-details';
 import { toggleFavoriteActionModel } from '~/actions/toggle-favorite';
@@ -41,7 +41,7 @@ export async function mediaDetailsLoaderModel({
       mediaType === 'movies' ? 'movie' : 'tv';
 
     const cookieHeader = request.headers.get('cookie');
-    const sessionId = await sessionIdCookie.parse(cookieHeader);
+    const sessionId = await getSessionCookie(cookieHeader);
 
     const favoritePromise = sessionId
       ? getFavoriteByIdApi({
@@ -88,7 +88,7 @@ export async function mediaDetailsActionModel({
   context,
 }: Route.ActionArgs) {
   const cookieHeader = request.headers.get('cookie');
-  const sessionId = await sessionIdCookie.parse(cookieHeader);
+  const sessionId = await getSessionCookie(cookieHeader);
   const formData = await request.formData();
   const intent = formData.get('intent');
   const user = context.get(userContext);

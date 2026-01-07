@@ -1,11 +1,13 @@
 import styles from './index.module.css';
+import { Link, useNavigate } from 'react-router';
 import { Button } from '~/components/ui/button';
+import { useHeaderViewModel } from './view-model';
 import RouterIcon from '~/assets/icons/router-logo.svg?react';
-import { Form, Link, useNavigate, useRouteLoaderData } from 'react-router';
 
 export function Header() {
   const navigate = useNavigate();
-  const { user } = useRouteLoaderData('root') || {};
+
+  const { sessionId, isSubmitting, handleLogoutClick } = useHeaderViewModel();
 
   return (
     <header className={styles.header}>
@@ -13,16 +15,18 @@ export function Header() {
         <RouterIcon />
       </Link>
       <nav className={styles.nav}>
-        {user.sessionId ? (
+        {sessionId ? (
           <>
             <Link to="/profile" className={styles.navLink}>
               Profile
             </Link>
-            <Form method="post">
-              <Button type="submit" variant="ghost">
-                Logout
-              </Button>
-            </Form>
+            <Button
+              variant="ghost"
+              disabled={isSubmitting}
+              onClick={handleLogoutClick}
+            >
+              Logout
+            </Button>
           </>
         ) : (
           <Button

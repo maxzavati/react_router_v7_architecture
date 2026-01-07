@@ -3,8 +3,8 @@ import {
   getFavoriteTvShowsApi,
 } from '~/apis/user/endpoints';
 import { userContext } from '~/contexts/user';
-import { sessionIdCookie } from '~/apis/auth/utils';
 import type { Route } from '../../../routes/+types/profile';
+import { getSessionCookie, sessionIdCookie } from '~/apis/auth/utils';
 import { toggleFavoriteActionModel } from '~/actions/toggle-favorite';
 
 export async function profileLoaderModel({
@@ -12,7 +12,7 @@ export async function profileLoaderModel({
   context,
 }: Route.LoaderArgs) {
   const cookieHeader = request.headers.get('cookie');
-  const sessionId = await sessionIdCookie.parse(cookieHeader);
+  const sessionId = await getSessionCookie(cookieHeader);
   const user = context.get(userContext);
 
   try {
@@ -58,7 +58,7 @@ export async function profileActionModel({
   context,
 }: Route.ActionArgs) {
   const cookieHeader = request.headers.get('cookie');
-  const sessionId = await sessionIdCookie.parse(cookieHeader);
+  const sessionId = await getSessionCookie(cookieHeader);
   const formData = await request.formData();
   const intent = formData.get('intent');
   const user = context.get(userContext);

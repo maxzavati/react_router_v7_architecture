@@ -8,12 +8,14 @@ import {
 } from 'react-router';
 import type { Route } from './+types/root';
 import { authMiddleware } from './middlewares/auth';
+import { userContext } from './contexts/user';
 import './styles/reset.css';
 import './styles/app.css';
-import { userContext } from './contexts/user';
 import { Footer } from './components/templates/footer';
 import { Header } from './components/templates/header';
 import { timingMiddleware } from './middlewares/timing';
+import { getSessionCookie, sessionIdCookie } from './apis/auth/utils';
+import { logoutAction } from './actions/logout';
 
 export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
 
@@ -24,6 +26,18 @@ export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
 export async function loader({ context }: Route.LoaderArgs) {
   const user = context.get(userContext);
   return { user };
+}
+
+export async function action({ request }: Route.ActionArgs) {
+  const cookieHeader = request.headers.get('Cookie');
+  const sessionId = await getSessionCookie(cookieHeader);
+  const formData = await request.formData();
+
+  if (formData.get('intent') === 'logout') {
+    return logoutAction({ sessionId: sessionId ?? null });
+  }
+
+  return null;
 }
 
 export const links: Route.LinksFunction = () => [

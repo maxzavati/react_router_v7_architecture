@@ -1,4 +1,5 @@
-import { useFetcher, useRouteLoaderData } from 'react-router';
+import { useFetcher } from 'react-router';
+import { useGetUserOnClientSide } from '~/hooks/use-get-user';
 
 interface UseMediaCardVMParams {
   mediaId: number;
@@ -11,7 +12,7 @@ export function useMediaCardViewModel({
   mediaType,
   isFavorite,
 }: UseMediaCardVMParams) {
-  const { user } = useRouteLoaderData('root') || {};
+  const sessionId = useGetUserOnClientSide();
   const fetcher = useFetcher<{ favorite: boolean }>();
 
   const submittedFavorite = fetcher.formData?.get('favorite');
@@ -35,7 +36,7 @@ export function useMediaCardViewModel({
   }
 
   return {
-    sessionId: user.sessionId,
+    sessionId,
     optimisticFavorite,
     isSubmitting,
     handleFavoriteClick,

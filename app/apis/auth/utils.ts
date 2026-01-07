@@ -16,6 +16,12 @@ export const sessionIdCookie = createCookie(SESSION_ID_COOKIE, {
   secure: true,
 });
 
+export async function getSessionCookie(
+  cookieHeader: string | null
+): Promise<string | null> {
+  return sessionIdCookie.parse(cookieHeader ?? null);
+}
+
 export async function removeSessionCookie(): Promise<string> {
   return sessionIdCookie.serialize('', { maxAge: 0 });
 }
