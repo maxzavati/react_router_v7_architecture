@@ -27,7 +27,6 @@ export function ProfileView() {
   return (
     <>
       {isLoading ? <Loader /> : null}
-
       <main className={styles.main}>
         <section className={styles.heroSection}>
           <div className={styles.heroContent}>
@@ -60,8 +59,10 @@ export function ProfileView() {
                       name={movie.title}
                       mediaType="movie"
                       isFavorite={true}
+                      releaseDate={movie.release_date}
                       link={`/movies/${movie.id}`}
                       image={posterPath(movie.poster_path)}
+                      rating={movie.vote_average}
                     />
                   )}
                 />
@@ -83,8 +84,10 @@ export function ProfileView() {
                       name={tvShow.name}
                       mediaType="tv"
                       isFavorite={true}
+                      releaseDate={tvShow.first_air_date}
                       link={`/tv-shows/${tvShow.id}`}
                       image={posterPath(tvShow.poster_path)}
+                      rating={tvShow.vote_average}
                     />
                   )}
                 />

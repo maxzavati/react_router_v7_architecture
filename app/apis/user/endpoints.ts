@@ -1,9 +1,11 @@
 import api from '../instance';
 import type {
   AccountDetailsResponse,
+  FavoriteByIdResponse,
   FavoriteMoviesResponse,
   FavoriteTvShowsResponse,
   GetAccountDetailsParams,
+  GetFavoriteByIdParams,
   GetFavoriteMoviesParams,
   GetFavoriteTvShowsParams,
   UpdateFavoriteParams,
@@ -31,7 +33,18 @@ export async function updateFavoriteApi({
     { media_type, media_id, favorite },
     { params: { session_id } }
   );
-  console.log('UpdateFavoriteResponse data:', data);
+  return data;
+}
+
+export async function getFavoriteByIdApi({
+  session_id,
+  media_type,
+  media_id,
+}: GetFavoriteByIdParams): Promise<FavoriteByIdResponse> {
+  const { data } = await api.get<FavoriteByIdResponse>(
+    `/${media_type}/${media_id}/account_states`,
+    { params: { session_id } }
+  );
   return data;
 }
 

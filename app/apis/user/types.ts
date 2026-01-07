@@ -32,6 +32,19 @@ export interface UpdateFavoriteResponse {
   status_message: string;
 }
 
+export interface GetFavoriteByIdParams {
+  session_id: string;
+  media_type: 'movie' | 'tv';
+  media_id: number;
+}
+
+export interface FavoriteByIdResponse {
+  id: number;
+  favorite: boolean;
+  watchlist: boolean;
+  rated: boolean | { value: number };
+}
+
 export interface GetFavoriteMoviesParams {
   account_id: number;
   session_id: string;
@@ -52,7 +65,7 @@ export interface FavoriteMoviesResponse {
   page: number;
   total_pages: number;
   total_results: number;
-  results: Array<{
+  results: {
     id: number;
     title: string;
     name?: string;
@@ -60,21 +73,23 @@ export interface FavoriteMoviesResponse {
     backdrop_path: string | null;
     overview: string;
     vote_average: number;
+    release_date: string;
     media_type?: 'movie';
-  }>;
+  }[];
 }
 
 export interface FavoriteTvShowsResponse {
   page: number;
   total_pages: number;
   total_results: number;
-  results: Array<{
+  results: {
     id: number;
     name: string;
     poster_path: string | null;
     backdrop_path: string | null;
     overview: string;
     vote_average: number;
+    first_air_date: string;
     media_type?: 'tv';
-  }>;
+  }[];
 }

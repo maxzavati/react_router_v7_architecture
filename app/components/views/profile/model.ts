@@ -1,11 +1,11 @@
 import {
   getFavoriteMoviesApi,
   getFavoriteTvShowsApi,
-  updateFavoriteApi,
 } from '~/apis/user/endpoints';
-import type { Route } from '../../../routes/+types/profile';
-import { sessionIdCookie } from '~/apis/auth/utils';
 import { userContext } from '~/contexts/user';
+import { sessionIdCookie } from '~/apis/auth/utils';
+import type { Route } from '../../../routes/+types/profile';
+import { toggleFavoriteActionModel } from '~/actions/toggle-favorite';
 
 export async function profileLoaderModel({
   request,
@@ -53,36 +53,24 @@ export async function profileLoaderModel({
   }
 }
 
-export async function profileAction({ request, context }: Route.ActionArgs) {
+export async function profileActionModel({
+  request,
+  context,
+}: Route.ActionArgs) {
   const cookieHeader = request.headers.get('cookie');
   const sessionId = await sessionIdCookie.parse(cookieHeader);
   const formData = await request.formData();
-
-  const mediaId = Number(formData.get('mediaId'));
-  const mediaType = formData.get('mediaType') as 'movie' | 'tv';
-  const favorite = formData.get('favorite') === 'true';
   const intent = formData.get('intent');
   const user = context.get(userContext);
+  const accountId = user?.account?.id ?? null;
 
-  if (sessionId && mediaType && user?.account) {
-    if (intent === 'favorite-toggle') {
-      try {
-        return await updateFavoriteApi({
-          account_id: user.account.id,
-          session_id: sessionId,
-          media_type: mediaType,
-          media_id: mediaId,
-          favorite,
-        });
-      } catch (error) {
-        return {
-          isError: true,
-          errorMessage:
-            error instanceof Error
-              ? error.message
-              : 'Unable to update favorite status.',
-        };
-      }
-    }
+  if (intent === 'favorite-toggle') {
+    return toggleFavoriteActionModel({
+      sessionId,
+      accountId,
+      formData,
+    });
   }
+
+  return null;
 }

@@ -38,11 +38,10 @@ export function HomeView() {
                 type="search"
                 id="home-search"
                 className={styles.searchInput}
-                placeholder="Movies or TV shows…"
+                placeholder="Search movies or TV shows…"
               />
               <Button type="submit" className={styles.searchButton}>
                 <SearchIcon />
-                Search
               </Button>
             </Form>
           </div>
@@ -68,6 +67,8 @@ export function HomeView() {
                   link={`/${linkSegment}/${item.id}`}
                   isFavorite={item.isFavorite}
                   image={posterPath(item.poster_path)}
+                  rating={item.vote_average}
+                  releaseDate={item.release_date || item.first_air_date || ''}
                 />
               );
             }}
@@ -88,6 +89,8 @@ export function HomeView() {
               link={`/movies/${movie.id}`}
               isFavorite={movie.isFavorite}
               image={posterPath(movie.poster_path)}
+              rating={movie.vote_average}
+              releaseDate={movie.release_date}
             />
           )}
         />
@@ -107,6 +110,8 @@ export function HomeView() {
                 link={`/tv-shows/${show.id}`}
                 isFavorite={show.isFavorite}
                 image={posterPath(show.poster_path)}
+                rating={show.vote_average}
+                releaseDate={show.first_air_date}
               />
             )}
           />

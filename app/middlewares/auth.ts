@@ -11,11 +11,11 @@ export async function authMiddleware({ request, context }: Route.ActionArgs) {
   const sessionId: string | undefined =
     await sessionIdCookie.parse(cookieHeader);
 
-  context.set(userContext, { sessionId: sessionId, account: null });
+  context.set(userContext, { account: null });
 
   if (sessionId) {
     const account = await getAccountDetailsApi({ session_id: sessionId });
-    context.set(userContext, { sessionId, account });
+    context.set(userContext, { account });
   }
 
   if (pathname.startsWith('/auth')) {

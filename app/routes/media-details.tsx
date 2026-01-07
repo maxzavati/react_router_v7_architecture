@@ -1,5 +1,8 @@
+import {
+  mediaDetailsActionModel,
+  mediaDetailsLoaderModel,
+} from '~/components/views/media-details/model';
 import type { Route } from './+types/media-details';
-import { mediaDetailsModel } from '~/components/views/media-details/model';
 import { MediaDetailsView } from '~/components/views/media-details/view';
 
 export function meta({}: Route.MetaArgs) {
@@ -9,10 +12,12 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({ params }: Route.LoaderArgs) {
-  const { mediaType, id } = params;
+export async function loader(args: Route.LoaderArgs) {
+  return mediaDetailsLoaderModel(args);
+}
 
-  return mediaDetailsModel({ mediaType, id });
+export async function action(args: Route.ActionArgs) {
+  return mediaDetailsActionModel(args);
 }
 
 export default function MediaDetailsRoute() {

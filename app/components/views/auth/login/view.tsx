@@ -26,7 +26,7 @@ export function AuthLoginView() {
           <Form method="post" className={styles.form}>
             <Field name="username" label="Username" required />
             <Field name="password" label="Password" type="password" required />
-            <Button type="submit">
+            <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Connecting...' : 'Connect'}
             </Button>
           </Form>

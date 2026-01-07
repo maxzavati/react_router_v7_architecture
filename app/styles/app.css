@@ -8,6 +8,8 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
+  --main-height: 164px;
+
   --screen-xxs: 375px;
   --screen-xs: 540px;
   --screen-sm: 768px;

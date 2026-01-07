@@ -13,7 +13,6 @@ import './styles/app.css';
 import { userContext } from './contexts/user';
 import { Footer } from './components/templates/footer';
 import { Header } from './components/templates/header';
-import { Separator } from './components/ui/separator';
 
 export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
 
@@ -51,7 +50,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <Header />
         <div className="root">{children}</div>
-        <Separator className="maxWidth" />
         <Footer />
         <ScrollRestoration />
         <Scripts />

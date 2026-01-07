@@ -4,12 +4,14 @@ import { Button } from '~/components/ui/button';
 import backgroundImage from '/movies-bg-01.webp';
 import { Message } from '~/components/ui/message';
 import { useAuthConnectViewModel } from './view-model';
+import { Loader } from '~/components/ui/loader';
 
 export function AuthConnectPageView() {
   const { isSubmitting, isError } = useAuthConnectViewModel();
 
   return (
     <>
+      {isSubmitting ? <Loader /> : null}
       <main className={styles.main}>
         <section>
           <img

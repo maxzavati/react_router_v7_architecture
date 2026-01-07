@@ -1,5 +1,5 @@
 .main {
-  min-height: 78svh;
+  min-height: calc(100svh - var(--main-height));
 }
 
 .container {
