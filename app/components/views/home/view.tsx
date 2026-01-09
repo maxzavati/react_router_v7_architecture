@@ -7,22 +7,11 @@ import { Loader } from '~/components/ui/loader';
 import { Button } from '~/components/ui/button';
 import { MediaCard } from '~/components/media-card/view';
 import SearchIcon from '~/assets/icons/search.svg?react';
-import { ErrorSection } from '~/components/ui/error-section';
 import { MediaSection } from '~/components/templates/media-section';
 
 export function HomeView() {
-  const {
-    isLoading,
-    isError,
-    errorMessage,
-    trendingAll,
-    topRatedMovies,
-    topRatedTvShows,
-  } = useHomeViewModel();
-
-  if (isError) {
-    return <ErrorSection message={errorMessage} />;
-  }
+  const { isLoading, trendingAll, topRatedMovies, topRatedTvShows } =
+    useHomeViewModel();
 
   return (
     <>

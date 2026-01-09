@@ -3,29 +3,15 @@ import { createRequestTokenApi } from '~/apis/auth/endpoints';
 
 export async function authConnectModel() {
   try {
-    const data = await createRequestTokenApi();
-
-    if (!data.success || !data.request_token) {
-      return {
-        type: 'error' as const,
-        response: new Response('Failed to create request token.', {
-          status: 500,
-        }),
-      };
-    }
-
+    const res = await createRequestTokenApi();
+    return redirect(
+      `/auth/login?request_token=${encodeURIComponent(res.request_token)}`
+    );
+  } catch (error) {
     return {
-      type: 'success' as const,
-      redirect: redirect(
-        `/auth/login?request_token=${encodeURIComponent(data.request_token)}`,
-      ),
-    };
-  } catch (cause) {
-    return {
-      type: 'error' as const,
-      response: new Response('Failed to connect. Please try again later.', {
-        status: 500,
-      }),
+      ok: false,
+      errorMessage:
+        'Failed to create request token. Please try again or come back later.',
     };
   }
 }

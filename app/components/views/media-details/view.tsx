@@ -1,7 +1,7 @@
 import styles from './index.module.css';
 import { Loader } from '~/components/ui/loader';
 import { useMediaDetailsViewModel } from './view-model';
-import { RatingMeter } from '~/components/rating-meter';
+import { RatingMeter } from '~/components/ui/rating-meter';
 import { ErrorSection } from '~/components/ui/error-section';
 import { extractYear } from '~/utils/dates';
 import HeartIcon from '~/assets/icons/heart.svg?react';

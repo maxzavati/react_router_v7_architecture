@@ -19,79 +19,71 @@ export async function homeLoaderModel({ request, context }: Route.LoaderArgs) {
   const cookieHeader = request.headers.get('cookie');
   const sessionId = await getSessionCookie(cookieHeader);
 
-  try {
-    const [trendingAllRes, topRatedMoviesRes, topRatedTvShowsRes] =
-      await Promise.all([
-        getTrendingAllApi(params),
-        getTopRatedMoviesApi(params),
-        getTopRatedTvShowsApi(params),
-      ]);
+  const [trendingAllRes, topRatedMoviesRes, topRatedTvShowsRes] =
+    await Promise.all([
+      getTrendingAllApi(params),
+      getTopRatedMoviesApi(params),
+      getTopRatedTvShowsApi(params),
+    ]);
 
-    const user = context.get(userContext);
+  const user = context.get(userContext);
 
-    const favoriteMovieIds = new Set<number>();
-    const favoriteTvShowIds = new Set<number>();
+  const favoriteMovieIds = new Set<number>();
+  const favoriteTvShowIds = new Set<number>();
 
-    if (sessionId && user.account) {
-      const accountId = user.account.id;
-      const baseFavoriteParams = {
-        account_id: accountId,
-        session_id: sessionId,
-        sort_by: 'created_at.desc',
-      };
-
-      const [favoriteMovies, favoriteTvShows] = await Promise.all([
-        fetchAllPages((page) =>
-          getFavoriteMoviesApi({ ...baseFavoriteParams, page })
-        ),
-        fetchAllPages((page) =>
-          getFavoriteTvShowsApi({ ...baseFavoriteParams, page })
-        ),
-      ]);
-
-      favoriteMovies.forEach((movie) => favoriteMovieIds.add(movie.id));
-      favoriteTvShows.forEach((show) => favoriteTvShowIds.add(show.id));
-    }
-
-    const trendingAll = {
-      ...trendingAllRes,
-      results: trendingAllRes.results.map((item) => ({
-        ...item,
-        isFavorite:
-          favoriteMovieIds.has(item.id) || favoriteTvShowIds.has(item.id),
-      })),
+  if (sessionId && user.account) {
+    const accountId = user.account.id;
+    const baseFavoriteParams = {
+      account_id: accountId,
+      session_id: sessionId,
+      sort_by: 'created_at.desc',
     };
 
-    const topRatedMovies = {
-      ...topRatedMoviesRes,
-      results: topRatedMoviesRes.results.map((movie) => ({
-        ...movie,
-        isFavorite: favoriteMovieIds.has(movie.id),
-      })),
-    };
+    const [favoriteMovies, favoriteTvShows] = await Promise.all([
+      fetchAllPages((page) =>
+        getFavoriteMoviesApi({ ...baseFavoriteParams, page })
+      ),
+      fetchAllPages((page) =>
+        getFavoriteTvShowsApi({ ...baseFavoriteParams, page })
+      ),
+    ]);
 
-    const topRatedTvShows = {
-      ...topRatedTvShowsRes,
-      results: topRatedTvShowsRes.results.map((show) => ({
-        ...show,
-        isFavorite: favoriteTvShowIds.has(show.id),
-      })),
-    };
-
-    return {
-      trendingAll,
-      favoriteMovieIds,
-      favoriteTvShowIds,
-      topRatedMovies,
-      topRatedTvShows,
-    };
-  } catch (error) {
-    return {
-      isError: true,
-      errorMessage:
-        error instanceof Error ? error.message : 'Unable to load data.',
-    };
+    favoriteMovies.forEach((movie) => favoriteMovieIds.add(movie.id));
+    favoriteTvShows.forEach((show) => favoriteTvShowIds.add(show.id));
   }
+
+  const trendingAll = {
+    ...trendingAllRes,
+    results: trendingAllRes.results.map((item) => ({
+      ...item,
+      isFavorite:
+        favoriteMovieIds.has(item.id) || favoriteTvShowIds.has(item.id),
+    })),
+  };
+
+  const topRatedMovies = {
+    ...topRatedMoviesRes,
+    results: topRatedMoviesRes.results.map((movie) => ({
+      ...movie,
+      isFavorite: favoriteMovieIds.has(movie.id),
+    })),
+  };
+
+  const topRatedTvShows = {
+    ...topRatedTvShowsRes,
+    results: topRatedTvShowsRes.results.map((show) => ({
+      ...show,
+      isFavorite: favoriteTvShowIds.has(show.id),
+    })),
+  };
+
+  return {
+    trendingAll,
+    favoriteMovieIds,
+    favoriteTvShowIds,
+    topRatedMovies,
+    topRatedTvShows,
+  };
 }
 
 export async function homeActionModel({ request, context }: Route.ActionArgs) {
@@ -109,6 +101,4 @@ export async function homeActionModel({ request, context }: Route.ActionArgs) {
       formData,
     });
   }
-
-  return null;
 }

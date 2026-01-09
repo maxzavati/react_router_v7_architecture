@@ -9,12 +9,12 @@ export function meta({}: Route.MetaArgs) {
   return [{ title: 'Welcome' }, { name: 'description', content: 'Welcome' }];
 }
 
-export async function action(args: Route.ActionArgs) {
+export function action(args: Route.ActionArgs) {
   return homeActionModel(args);
 }
 
-export async function loader(args: Route.LoaderArgs) {
-  return await homeLoaderModel(args);
+export function loader(args: Route.LoaderArgs) {
+  return homeLoaderModel(args);
 }
 
 export default function HomeRoute() {

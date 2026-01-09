@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import styles from './index.module.css';
-import { RatingMeter } from '../rating-meter';
+import { RatingMeter } from '../ui/rating-meter';
 import { convertToDateString } from '~/utils/dates';
 import { useMediaCardViewModel } from './view-model';
 import HeartIcon from '~/assets/icons/heart.svg?react';

@@ -12,12 +12,12 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function action({ request }: Route.ActionArgs) {
-  return await authLoginActionModel({ request });
+export function action({ request }: Route.ActionArgs) {
+  return authLoginActionModel({ request });
 }
 
-export async function loader({ request }: Route.LoaderArgs) {
-  return await loginLoaderModel({ request });
+export function loader({ request }: Route.LoaderArgs) {
+  return loginLoaderModel({ request });
 }
 
 export default function AuthLoginRoute() {

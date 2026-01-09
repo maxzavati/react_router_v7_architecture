@@ -1,15 +1,12 @@
 import { useActionData, useNavigation } from 'react-router';
-import type { action as authConnectAction } from '~/routes/auth-connect';
-
-type ActionData = Awaited<ReturnType<typeof authConnectAction>>;
+import type { action } from '~/routes/auth-connect';
 
 export function useAuthConnectViewModel() {
-  const actionData = useActionData<ActionData>();
+  const actionData = useActionData<typeof action>();
   const navigation = useNavigation();
 
   return {
     actionData,
-    isError: !!actionData && !actionData.ok,
     isSubmitting: navigation.state == 'submitting',
   };
 }

@@ -9,14 +9,8 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function action() {
-  const result = await authConnectModel();
-
-  if (result.type == 'error') {
-    throw result.response;
-  }
-
-  return result.redirect;
+export function action() {
+  return authConnectModel();
 }
 
 export default function AuthConnectRoute() {

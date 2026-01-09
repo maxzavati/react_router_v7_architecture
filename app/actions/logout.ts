@@ -8,18 +8,11 @@ export async function logoutAction({
   sessionId: string | null;
 }) {
   if (sessionId) {
-    try {
-      const res = await deleteSessionApi({ session_id: sessionId });
-      if (res.success) {
-        const headers = new Headers();
-        headers.append('Set-Cookie', await removeSessionCookie());
-        return redirect('/auth/connect', { headers });
-      }
-    } catch (error) {
-      console.error('Error during logout:', error);
-      return null;
+    const res = await deleteSessionApi({ session_id: sessionId });
+    if (res.success) {
+      const headers = new Headers();
+      headers.append('Set-Cookie', await removeSessionCookie());
+      return redirect('/auth/connect', { headers });
     }
   }
-
-  return null;
 }

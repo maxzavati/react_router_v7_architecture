@@ -12,11 +12,11 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader(args: Route.LoaderArgs) {
+export function loader(args: Route.LoaderArgs) {
   return mediaDetailsLoaderModel(args);
 }
 
-export async function action(args: Route.ActionArgs) {
+export function action(args: Route.ActionArgs) {
   return mediaDetailsActionModel(args);
 }
 

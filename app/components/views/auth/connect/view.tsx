@@ -7,7 +7,7 @@ import { useAuthConnectViewModel } from './view-model';
 import { Loader } from '~/components/ui/loader';
 
 export function AuthConnectPageView() {
-  const { isSubmitting, isError } = useAuthConnectViewModel();
+  const { actionData, isSubmitting } = useAuthConnectViewModel();
 
   return (
     <>
@@ -31,10 +31,8 @@ export function AuthConnectPageView() {
               {isSubmitting ? 'Connecting...' : 'Connect'}
             </Button>
           </Form>
-          {isError ? (
-            <Message variant="error">
-              An error occurred during connection. Please try again.
-            </Message>
+          {actionData?.errorMessage ? (
+            <Message variant="error">{actionData.errorMessage}</Message>
           ) : null}
         </div>
       </main>

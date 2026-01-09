@@ -5,6 +5,7 @@ import {
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
+  useNavigate,
 } from 'react-router';
 import type { Route } from './+types/root';
 import { authMiddleware } from './middlewares/auth';
@@ -14,7 +15,7 @@ import './styles/app.css';
 import { Footer } from './components/templates/footer';
 import { Header } from './components/templates/header';
 import { timingMiddleware } from './middlewares/timing';
-import { getSessionCookie, sessionIdCookie } from './apis/auth/utils';
+import { getSessionCookie } from './apis/auth/utils';
 import { logoutAction } from './actions/logout';
 
 export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
@@ -36,8 +37,6 @@ export async function action({ request }: Route.ActionArgs) {
   if (formData.get('intent') === 'logout') {
     return logoutAction({ sessionId: sessionId ?? null });
   }
-
-  return null;
 }
 
 export const links: Route.LinksFunction = () => [
@@ -80,7 +79,9 @@ export default function App() {
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = 'Oops!';
   let details = 'An unexpected error occurred.';
-  let stack: string | undefined;
+  // let stack: string | undefined;
+
+  const navigate = useNavigate();
 
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? '404' : 'Error';
@@ -90,18 +91,24 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
         : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
-    stack = error.stack;
+    // stack = error.stack;
   }
 
   return (
     <main>
       <h1>{message}</h1>
       <p>{details}</p>
-      {stack ? (
+      <div>
+        <button onClick={() => navigate(-1)}>Go back</button>
+        <form method="get">
+          <button type="submit">Reload</button>
+        </form>
+      </div>
+      {/* {stack ? (
         <pre>
           <code>{stack}</code>
         </pre>
-      ) : null}
+      ) : null} */}
     </main>
   );
 }

@@ -4,7 +4,7 @@ import {
 } from '~/apis/user/endpoints';
 import { userContext } from '~/contexts/user';
 import type { Route } from '../../../routes/+types/profile';
-import { getSessionCookie, sessionIdCookie } from '~/apis/auth/utils';
+import { getSessionCookie } from '~/apis/auth/utils';
 import { toggleFavoriteActionModel } from '~/actions/toggle-favorite';
 
 export async function profileLoaderModel({
@@ -15,40 +15,27 @@ export async function profileLoaderModel({
   const sessionId = await getSessionCookie(cookieHeader);
   const user = context.get(userContext);
 
-  try {
-    if (sessionId && user.account) {
-      const accountId = user.account.id;
-      const baseFavoriteParams = {
-        account_id: accountId,
-        session_id: sessionId,
-        sort_by: 'created_at.desc',
-      };
-
-      const favoriteMovies = getFavoriteMoviesApi({
-        ...baseFavoriteParams,
-        page: 1,
-      });
-      const favoriteTvShows = getFavoriteTvShowsApi({
-        ...baseFavoriteParams,
-        page: 1,
-      });
-
-      return {
-        accountDetails: user.account,
-        favoriteMovies,
-        favoriteTvShows,
-      };
-    }
-
-    return {
-      favoriteMovies: null,
-      favoriteTvShows: null,
+  if (sessionId && user.account) {
+    const accountId = user.account.id;
+    const baseFavoriteParams = {
+      account_id: accountId,
+      session_id: sessionId,
+      sort_by: 'created_at.desc',
     };
-  } catch (error) {
+
+    const favoriteMovies = getFavoriteMoviesApi({
+      ...baseFavoriteParams,
+      page: 1,
+    });
+    const favoriteTvShows = getFavoriteTvShowsApi({
+      ...baseFavoriteParams,
+      page: 1,
+    });
+
     return {
-      isError: true,
-      errorMessage:
-        error instanceof Error ? error.message : 'Unable to load data.',
+      accountDetails: user.account,
+      favoriteMovies,
+      favoriteTvShows,
     };
   }
 }
@@ -71,6 +58,4 @@ export async function profileActionModel({
       formData,
     });
   }
-
-  return null;
 }

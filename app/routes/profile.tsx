@@ -12,11 +12,11 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader(args: Route.LoaderArgs) {
-  return await profileLoaderModel(args);
+export function loader(args: Route.LoaderArgs) {
+  return profileLoaderModel(args);
 }
 
-export async function action(args: Route.ActionArgs) {
+export function action(args: Route.ActionArgs) {
   return profileActionModel(args);
 }
 

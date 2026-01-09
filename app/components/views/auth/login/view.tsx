@@ -8,7 +8,7 @@ import { Message } from '~/components/ui/message';
 import backgroundImage from '/movies-bg-03.webp';
 
 export function AuthLoginView() {
-  const { isSubmitting, isError } = useAuthLoginViewModel();
+  const { actionData, isSubmitting } = useAuthLoginViewModel();
 
   return (
     <>
@@ -30,10 +30,8 @@ export function AuthLoginView() {
               {isSubmitting ? 'Connecting...' : 'Connect'}
             </Button>
           </Form>
-          {isError ? (
-            <Message variant="error">
-              An error occurred during login. Please try again.
-            </Message>
+          {actionData?.errorMessage ? (
+            <Message variant="error">{actionData.errorMessage}</Message>
           ) : null}
         </div>
       </main>

@@ -5,24 +5,17 @@ import { posterPath } from '~/apis/utils';
 import { Loader } from '~/components/ui/loader';
 import { useProfileViewModel } from './view-model';
 import { MediaCard } from '~/components/media-card/view';
-import { ErrorSection } from '~/components/ui/error-section';
 import { MediaSection } from '~/components/templates/media-section';
 
 export function ProfileView() {
   const {
     isLoading,
-    isError,
-    errorMessage,
     accountDetails,
     avatarUrl,
     avatarFallback,
     favoriteMovies,
     favoriteTvShows,
   } = useProfileViewModel();
-
-  if (isError) {
-    return <ErrorSection message={errorMessage} />;
-  }
 
   return (
     <>

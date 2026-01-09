@@ -45,13 +45,11 @@ export async function authLoginActionModel({ request }: { request: Request }) {
       headers: { 'Set-Cookie': setCookie },
     });
   } catch (error) {
-    if (error instanceof Response) {
-      throw error;
-    }
-
-    throw new Response('Failed to sign in. Please try again later.', {
-      status: 500,
-    });
+    return {
+      ok: false,
+      errorMessage:
+        'Login failed. Please check your credentials and try again.',
+    };
   }
 }
 
@@ -60,5 +58,4 @@ export async function loginLoaderModel({ request }: { request: Request }) {
   if (!url.searchParams.get('request_token')) {
     throw redirect('/auth/connect');
   }
-  return null;
 }

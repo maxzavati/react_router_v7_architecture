@@ -16,22 +16,12 @@ export async function toggleFavoriteActionModel({
   const mediaType = formData.get('mediaType') as 'movie' | 'tv';
 
   if (sessionId && accountId && mediaType) {
-    try {
-      return await updateFavoriteApi({
-        account_id: accountId,
-        session_id: sessionId,
-        media_type: mediaType,
-        media_id: mediaId,
-        favorite,
-      });
-    } catch (error) {
-      return {
-        isError: true,
-        errorMessage:
-          error instanceof Error
-            ? error.message
-            : 'Unable to update favorite status.',
-      };
-    }
+    return await updateFavoriteApi({
+      account_id: accountId,
+      session_id: sessionId,
+      media_type: mediaType,
+      media_id: mediaId,
+      favorite,
+    });
   }
 }
