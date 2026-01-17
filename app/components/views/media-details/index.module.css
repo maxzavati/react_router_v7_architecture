@@ -22,6 +22,7 @@
 
 .backdropContent {
   position: relative;
+  min-height: calc(100svh - var(--main-height));
   display: grid;
   gap: 2rem;
   grid-template-columns: auto 1fr;
@@ -36,4 +37,31 @@
   object-fit: cover;
   border-radius: 8px;
   border: 1px solid var(--color-gray-200);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.favoriteBox {
+  height: 45px;
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  background-color: var(--color-gray-400);
+}
+
+.favoriteBox svg {
+  height: 25px;
+  width: auto;
+}
+
+.year {
+  font-weight: 400;
 }

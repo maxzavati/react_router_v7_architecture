@@ -1,36 +1,40 @@
 import {
+  useParams,
   useFetcher,
   useLoaderData,
   useNavigation,
-  useParams,
   useRouteLoaderData,
 } from 'react-router';
+import { extractYear } from '~/utils/dates';
 import type { loader } from '~/routes/media-details';
 
+const TMDB_IMAGE_BASE = import.meta.env.VITE_IMAGE_BASE_URL;
+
 export function useMediaDetailsViewModel() {
-  const loaderData = useLoaderData<typeof loader>();
+  const { data, mediaType, isFavorite } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const params = useParams();
-  const id = params.id;
 
   const { user } = useRouteLoaderData('root') as {
     user?: { sessionId: string | null };
   };
+
   const fetcher = useFetcher<{ favorite: boolean }>();
 
   const submittedFavorite = fetcher.formData?.get('favorite');
+
   const optimisticFavorite =
     typeof submittedFavorite === 'string'
       ? submittedFavorite === 'true'
-      : (fetcher.data?.favorite ?? loaderData.isFavorite);
+      : (fetcher.data?.favorite ?? isFavorite);
 
   const isSubmitting = fetcher.state !== 'idle';
 
-  function handleFavoriteClick() {
+  function handleFavoriteAction() {
     fetcher.submit(
       {
         intent: 'favorite-toggle',
-        mediaId: loaderData.data ? loaderData.data.id : 0,
+        mediaId: data ? data.id : 0,
         mediaType: params.mediaType == 'movies' ? 'movie' : 'tv',
         favorite: (!optimisticFavorite).toString(),
       },
@@ -38,14 +42,34 @@ export function useMediaDetailsViewModel() {
     );
   }
 
+  const isTvShowType = mediaType == 'tv';
+  const posterUrl = data.poster_path
+    ? `${TMDB_IMAGE_BASE}/w500${data.poster_path}`
+    : '';
+  const title = isTvShowType ? data.name : data.title;
+  const releaseDate = isTvShowType ? data.first_air_date : data.release_date;
+  const year = releaseDate ? extractYear(releaseDate) : '';
+  const genres = data.genres?.map((genre) => genre.name).join(', ') ?? '';
+  const numberOfEpisodes = isTvShowType ? data.number_of_episodes : null;
+  const numberOfSeasons = isTvShowType ? data.number_of_seasons : null;
+
+  console.log(data);
+
   return {
-    id,
     user,
-    ...loaderData,
+    data,
+    year,
+    title,
+    genres,
+    posterUrl,
+    isFavorite,
     isSubmitting,
-    isFavorite: loaderData.isFavorite,
+    isTvShowType,
+    numberOfSeasons,
+    numberOfEpisodes,
     optimisticFavorite,
-    handleFavoriteClick,
+    handleFavoriteAction,
     isLoading: navigation.state == 'loading',
+    backgroundImageUrl: `url(${TMDB_IMAGE_BASE}/w1280${data.backdrop_path})`,
   };
 }

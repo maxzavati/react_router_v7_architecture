@@ -102,13 +102,38 @@ h2 {
   margin-bottom: 16px;
 }
 
+h4 {
+  font-weight: 600;
+  font-size: 22px;
+}
+
 p {
   font-size: 16px;
+}
+
+strong {
+  font-weight: 700;
+}
+
+ul {
+  padding-left: 20px;
 }
 
 .maxWidth {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mt-3 {
+  margin-top: 3rem;
 }
 
 /* Scrollbar */
