@@ -3,15 +3,15 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  color: var(--color-foreground);
   overflow: hidden;
-  background-color: var(--color-background-50);
   border-radius: 50%;
+  color: var(--color-foreground);
+  background-color: var(--color-background-50);
 }
 
 .wrapperSmall {
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
 }
 
 .wrapperLarge {
@@ -53,13 +53,33 @@
 
 .value {
   position: absolute;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 1px;
   font-weight: 600;
+  line-height: 1;
 }
 
-.valueSmall {
-  font-size: 12px;
+.valueNumber {
+  line-height: 1;
 }
 
-.valueLarge {
+.valueNumberSmall {
+  font-size: 10px;
+}
+
+.valueNumberLarge {
   font-size: 16px;
+}
+
+.percentSymbol {
+  line-height: 1;
+}
+
+.percentSymbolSmall {
+  font-size: 7px;
+}
+
+.percentSymbolLarge {
+  font-size: 10px;
 }

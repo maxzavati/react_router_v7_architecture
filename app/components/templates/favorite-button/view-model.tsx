@@ -1,17 +1,17 @@
 import { useFetcher } from 'react-router';
 import { useGetUserOnClientSide } from '~/hooks/use-get-user';
 
-interface UseMediaCardVMParams {
-  mediaId: number;
+interface UseToggleFavoriteButtonViewModelParams {
+  id: number;
   isFavorite: boolean;
   mediaType: 'movie' | 'tv';
 }
 
-export function useMediaCardViewModel({
-  mediaId,
+export function useToggleFavoriteButtonViewModel({
+  id,
   mediaType,
   isFavorite,
-}: UseMediaCardVMParams) {
+}: UseToggleFavoriteButtonViewModelParams) {
   const sessionId = useGetUserOnClientSide();
   const fetcher = useFetcher<{ favorite: boolean }>();
 
@@ -23,22 +23,22 @@ export function useMediaCardViewModel({
 
   const isSubmitting = fetcher.state !== 'idle';
 
-  function handleFavoriteClick() {
+  function handleFavoriteAction() {
     fetcher.submit(
       {
         intent: 'favorite-toggle',
-        mediaId: mediaId.toString(),
+        mediaId: id.toString(),
         mediaType,
         favorite: (!optimisticFavorite).toString(),
       },
-      { method: 'post' }
+      { method: 'post' },
     );
   }
 
   return {
     sessionId,
-    optimisticFavorite,
     isSubmitting,
-    handleFavoriteClick,
+    optimisticFavorite,
+    handleFavoriteAction,
   };
 }

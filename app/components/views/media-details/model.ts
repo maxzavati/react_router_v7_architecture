@@ -6,7 +6,7 @@ import { userContext } from '~/contexts/user';
 import { getSessionCookie } from '~/apis/auth/utils';
 import { getFavoriteByIdApi } from '~/apis/user/endpoints';
 import type { Route } from '../../../routes/+types/media-details';
-import { toggleFavoriteActionModel } from '~/actions/toggle-favorite';
+import { toggleFavoriteActionModel } from '~/components/templates/favorite-button/model';
 
 type NormalizedMediaType = 'movie' | 'tv';
 
@@ -76,4 +76,16 @@ export async function mediaDetailsActionModel({
       formData,
     });
   }
+}
+
+export function metaDetailsLoaderModel({ matches }: Route.MetaArgs) {
+  const loaderData = matches[1]?.loaderData;
+
+  const { data, mediaType } = loaderData;
+  const title = (mediaType == 'tv' ? data.name : data.title) || 'Media details';
+
+  return [
+    { title },
+    { name: 'description', content: data.overview ?? 'Media details page' },
+  ];
 }

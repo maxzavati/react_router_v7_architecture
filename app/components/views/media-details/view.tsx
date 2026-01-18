@@ -1,28 +1,24 @@
 import styles from './index.module.css';
 import { Loader } from '~/components/ui/loader';
-import HeartIcon from '~/assets/icons/heart.svg?react';
 import { useMediaDetailsViewModel } from './view-model';
 import { RatingMeter } from '~/components/ui/rating-meter';
 import { ErrorSection } from '~/components/ui/error-section';
-import HeartFilledIcon from '~/assets/icons/heart-filled.svg?react';
+import { ToggleFavoriteButton } from '~/components/templates/favorite-button/view';
 
 export function MediaDetailsView() {
   const {
-    user,
     data,
     year,
     title,
     genres,
+    mediaId,
     posterUrl,
     isLoading,
     isFavorite,
     isTvShowType,
-    isSubmitting,
     numberOfEpisodes,
     numberOfSeasons,
-    optimisticFavorite,
     backgroundImageUrl,
-    handleFavoriteAction,
   } = useMediaDetailsViewModel();
 
   if (!data) {
@@ -49,28 +45,18 @@ export function MediaDetailsView() {
               {genres ? <p className={styles.genres}>{genres}</p> : null}
 
               <div className={styles.row}>
-                <div className={styles.favoriteBox}>
-                  {user?.sessionId ? (
-                    <button
-                      type="button"
-                      className={styles.favoriteButton}
-                      aria-label={
-                        optimisticFavorite
-                          ? `Remove from favorites`
-                          : `Add to favorites`
-                      }
-                      disabled={isSubmitting}
-                      onClick={handleFavoriteAction}
-                    >
-                      {isFavorite || optimisticFavorite ? (
-                        <HeartFilledIcon />
-                      ) : (
-                        <HeartIcon />
-                      )}
-                    </button>
-                  ) : null}
+                <ToggleFavoriteButton
+                  id={data.id}
+                  isFavorite={isFavorite}
+                  mediaType={isTvShowType ? 'tv' : 'movie'}
+                />
+                <div className={styles.ratingBox}>
+                  <RatingMeter value={data.vote_average} size="lg" />
+                  <div className={styles.ratingLabels}>
+                    <div>User</div>
+                    <div>Score</div>
+                  </div>
                 </div>
-                <RatingMeter value={data.vote_average} size="lg" />
               </div>
 
               <section>
@@ -83,6 +69,9 @@ export function MediaDetailsView() {
               <section className="mt-1">
                 <h4>Details</h4>
                 <ul>
+                  <li>
+                    Status: <strong>{data.status}</strong>
+                  </li>
                   {isTvShowType ? (
                     <>
                       <li>
@@ -93,6 +82,23 @@ export function MediaDetailsView() {
                       </li>
                     </>
                   ) : null}
+                  <li>
+                    Production countries:{' '}
+                    <strong>
+                      {' '}
+                      {data.production_countries
+                        .map((country) => country.iso_3166_1)
+                        .join(', ')}
+                    </strong>
+                  </li>
+                  <li>
+                    Production companies:{' '}
+                    <strong>
+                      {data.production_companies
+                        .map((company) => company.name)
+                        .join(', ')}
+                    </strong>
+                  </li>
                 </ul>
               </section>
             </div>

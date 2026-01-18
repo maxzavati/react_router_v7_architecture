@@ -1,12 +1,12 @@
-type PagedResponse<T> = {
+interface PagedResponse<T> {
   page: number;
   total_pages?: number;
   total_results?: number;
   results: T[];
-};
+}
 
 export async function fetchAllPages<T>(
-  fetchPage: (page: number) => Promise<PagedResponse<T>>
+  fetchPage: (page: number) => Promise<PagedResponse<T>>,
 ) {
   const aggregated: T[] = [];
   let page = 1;

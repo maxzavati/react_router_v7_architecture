@@ -1,15 +1,13 @@
 import {
   mediaDetailsActionModel,
   mediaDetailsLoaderModel,
+  metaDetailsLoaderModel,
 } from '~/components/views/media-details/model';
 import type { Route } from './+types/media-details';
 import { MediaDetailsView } from '~/components/views/media-details/view';
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: 'Details' },
-    { name: 'description', content: 'Item details' },
-  ];
+export function meta(args: Route.MetaArgs) {
+  return metaDetailsLoaderModel(args);
 }
 
 export function loader(args: Route.LoaderArgs) {

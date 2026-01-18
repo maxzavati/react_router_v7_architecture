@@ -1,16 +1,14 @@
 import { Link } from 'react-router';
 import styles from './index.module.css';
-import { RatingMeter } from '../ui/rating-meter';
+import { RatingMeter } from '../rating-meter';
 import { convertToDateString } from '~/utils/dates';
-import { useMediaCardViewModel } from './view-model';
-import HeartIcon from '~/assets/icons/heart.svg?react';
-import HeartFilledIcon from '~/assets/icons/heart-filled.svg?react';
+import { ToggleFavoriteButton } from '../../templates/favorite-button/view';
 
 interface ItemCardProps {
   image: string;
   name: string;
   link: string;
-  mediaId: number;
+  id: number;
   releaseDate: string;
   rating: number;
   mediaType: 'movie' | 'tv';
@@ -21,36 +19,20 @@ export function MediaCard({
   name,
   image,
   link,
-  mediaId,
+  id,
   releaseDate,
   mediaType,
   rating,
   isFavorite = false,
 }: ItemCardProps) {
-  const { sessionId, optimisticFavorite, isSubmitting, handleFavoriteClick } =
-    useMediaCardViewModel({ mediaId, mediaType, isFavorite });
-
   return (
     <article className={styles.article}>
-      {sessionId ? (
-        <button
-          type="button"
-          className={styles.favoriteButton}
-          aria-label={
-            optimisticFavorite
-              ? `Remove ${name} from favorites`
-              : `Add ${name} to favorites`
-          }
-          disabled={isSubmitting}
-          onClick={handleFavoriteClick}
-        >
-          {isFavorite || optimisticFavorite ? (
-            <HeartFilledIcon />
-          ) : (
-            <HeartIcon />
-          )}
-        </button>
-      ) : null}
+      <ToggleFavoriteButton
+        id={id}
+        mediaType={mediaType}
+        isFavorite={isFavorite}
+        className={styles.favoriteButton}
+      />
       <img className={styles.image} src={image} alt={name} />
       <div className={styles.content}>
         <Link to={link} className={styles.link}>

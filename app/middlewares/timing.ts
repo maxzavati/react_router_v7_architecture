@@ -4,7 +4,7 @@ import { type DataStrategyResult } from 'react-router';
 
 export async function timingMiddleware(
   { context }: Route.ActionArgs,
-  next: () => Promise<Record<string, DataStrategyResult>>
+  next: () => Promise<Record<string, DataStrategyResult>>,
 ) {
   const start = performance.now();
   await next();

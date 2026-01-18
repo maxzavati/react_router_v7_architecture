@@ -11,7 +11,7 @@ import { fetchAllPages } from '~/apis/utils';
 import { userContext } from '~/contexts/user';
 import type { Route } from '../../../routes/+types/home';
 import { getSessionCookie } from '~/apis/auth/utils';
-import { toggleFavoriteActionModel } from '~/actions/toggle-favorite';
+import { toggleFavoriteActionModel } from '~/components/templates/favorite-button/model';
 
 const params = { language: 'en-US', page: 1 };
 
@@ -41,10 +41,10 @@ export async function homeLoaderModel({ request, context }: Route.LoaderArgs) {
 
     const [favoriteMovies, favoriteTvShows] = await Promise.all([
       fetchAllPages((page) =>
-        getFavoriteMoviesApi({ ...baseFavoriteParams, page })
+        getFavoriteMoviesApi({ ...baseFavoriteParams, page }),
       ),
       fetchAllPages((page) =>
-        getFavoriteTvShowsApi({ ...baseFavoriteParams, page })
+        getFavoriteTvShowsApi({ ...baseFavoriteParams, page }),
       ),
     ]);
 

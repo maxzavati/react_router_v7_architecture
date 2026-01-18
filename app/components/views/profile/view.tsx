@@ -4,7 +4,7 @@ import styles from './index.module.css';
 import { posterPath } from '~/apis/utils';
 import { Loader } from '~/components/ui/loader';
 import { useProfileViewModel } from './view-model';
-import { MediaCard } from '~/components/media-card/view';
+import { MediaCard } from '~/components/ui/media-card/view';
 import { MediaSection } from '~/components/templates/media-section';
 
 export function ProfileView() {
@@ -48,7 +48,7 @@ export function ProfileView() {
                   renderItem={(movie) => (
                     <MediaCard
                       key={movie.id}
-                      mediaId={movie.id}
+                      id={movie.id}
                       name={movie.title}
                       mediaType="movie"
                       isFavorite={true}
@@ -73,7 +73,7 @@ export function ProfileView() {
                   renderItem={(tvShow) => (
                     <MediaCard
                       key={tvShow.id}
-                      mediaId={tvShow.id}
+                      id={tvShow.id}
                       name={tvShow.name}
                       mediaType="tv"
                       isFavorite={true}

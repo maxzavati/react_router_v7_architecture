@@ -1,93 +1,64 @@
-export type TrendingMediaType = 'all' | 'movie' | 'tv' | 'person';
-export type TrendingTimeWindow = 'day' | 'week';
+type TrendingTimeWindow = 'day' | 'week';
+type TrendingMediaType = 'all' | 'movie' | 'tv' | 'person';
 
-export interface PaginatedResponse<T> {
-  page: number;
-  results: T[];
-  total_pages: number;
-  total_results: number;
+// Media Lists
+interface BaseMediaItem {
+  id: number;
+  vote_average: number;
+  poster_path: string | null;
+  backdrop_path: string | null;
 }
 
-interface BaseMovie {
-  adult: boolean;
-  backdrop_path: string | null;
-  genre_ids: number[];
-  id: number;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string | null;
-  release_date: string;
+interface BaseMovieItem extends BaseMediaItem {
   title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
+  release_date: string;
 }
 
-interface BaseTvShow {
-  adult?: boolean;
-  backdrop_path: string | null;
-  genre_ids: number[];
-  id: number;
-  origin_country: string[];
-  original_language: string;
-  original_name: string;
-  overview: string;
-  popularity: number;
-  poster_path: string | null;
-  first_air_date: string;
+interface BaseTvShow extends BaseMediaItem {
   name: string;
-  vote_average: number;
-  vote_count: number;
+  first_air_date: string;
 }
 
-interface TrendingItem {
+interface BaseTrendingMedia extends BaseMediaItem {
   id: number;
   media_type: TrendingMediaType;
-  overview: string;
-  poster_path: string | null;
-  backdrop_path: string | null;
   title?: string;
   name?: string;
   release_date?: string;
   first_air_date?: string;
-  vote_average: number;
-  vote_count: number;
-  popularity: number;
+}
+
+export interface TrendingThisWeekParams {
+  page: number;
+  region?: string;
+  language?: string;
+  mediaType?: TrendingMediaType;
+  timeWindow?: TrendingTimeWindow;
 }
 
 export interface TrendingThisWeekResponse {
   page: number;
-  results: TrendingItem[];
+  results: BaseTrendingMedia[];
   total_pages: number;
   total_results: number;
 }
 
-export interface TrendingThisWeekParams {
-  mediaType?: TrendingMediaType;
-  timeWindow?: TrendingTimeWindow;
-  language?: string;
-  page?: number;
-  region?: string;
-}
-
 export interface GetTopRatedMoviesParams {
+  page: number;
   language?: string;
-  page?: number;
   region?: string;
 }
 
 export interface TopRatedMoviesResponse {
   page: number;
-  results: BaseMovie[];
+  results: BaseMovieItem[];
   total_pages: number;
   total_results: number;
 }
 
 export interface GetTopRatedTvShowsParams {
+  page: number;
   language?: string;
-  page?: number;
   timezone?: string;
 }
 
@@ -99,18 +70,13 @@ export interface TopRatedTvShowsResponse {
 }
 
 // Media Details
-interface BaseMediaDetails {
-  id: number;
+export interface BaseMediaDetails extends BaseMediaItem {
   overview: string;
   tagline: string | null;
   homepage: string | null;
-  poster_path: string | null;
-  backdrop_path: string | null;
-  vote_average: number;
-  vote_count: number;
   origin_country: string[];
   genres: { id: number; name: string }[];
-  status: 'Released' | 'Ended';
+  status: string;
   production_companies: {
     id: number;
     logo_path: string | null;
@@ -122,8 +88,6 @@ interface BaseMediaDetails {
 
 export interface GetMovieDetailsParams {
   movie_id: number;
-  language?: string;
-  append_to_response?: string;
 }
 
 export interface MovieDetails extends BaseMediaDetails {
@@ -134,12 +98,9 @@ export interface MovieDetails extends BaseMediaDetails {
 
 export interface GetTvShowDetailsParams {
   tv_id: number;
-  language?: string;
-  append_to_response?: string;
 }
 
 export interface TvShowDetails extends BaseMediaDetails {
-  id: number;
   name: string;
   first_air_date: string;
   number_of_episodes: number;
@@ -152,14 +113,4 @@ export interface TvShowDetails extends BaseMediaDetails {
     id: number;
     name: string;
   };
-  seasons: {
-    air_date: string;
-    episode_count: number;
-    id: number;
-    name: string;
-    overview: string;
-    poster_path: string | null;
-    season_number: number;
-    vote_average: number;
-  }[];
 }

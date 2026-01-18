@@ -16,18 +16,31 @@ export function RatingMeter({
   const strokeDashoffset = circleDash - (percent / 100) * circleDash;
 
   let meterColor = 'good';
-  if (percent < 50) meterColor = 'bad';
-  else if (percent < 70) meterColor = 'neutral';
+  if (percent < 50) {
+    meterColor = 'bad';
+  } else if (percent < 70) {
+    meterColor = 'neutral';
+  }
 
   const wrapperClassName =
     size === 'lg'
       ? `${styles.wrapper} ${styles.wrapperLarge}`
       : `${styles.wrapper} ${styles.wrapperSmall}`;
 
-  const valueClassName =
+  const valueWrapperClassName =
     size === 'lg'
       ? `${styles.value} ${styles.valueLarge}`
       : `${styles.value} ${styles.valueSmall}`;
+
+  const valueNumberClassName =
+    size === 'lg'
+      ? `${styles.valueNumber} ${styles.valueNumberLarge}`
+      : `${styles.valueNumber} ${styles.valueNumberSmall}`;
+
+  const percentClassName =
+    size === 'lg'
+      ? `${styles.percentSymbol} ${styles.percentSymbolLarge}`
+      : `${styles.percentSymbol} ${styles.percentSymbolSmall}`;
 
   return (
     <div
@@ -45,7 +58,10 @@ export function RatingMeter({
           strokeDashoffset={strokeDashoffset}
         />
       </svg>
-      <span className={valueClassName}>{percent}</span>
+      <span className={valueWrapperClassName}>
+        <span className={valueNumberClassName}>{percent}</span>
+        <span className={percentClassName}>%</span>
+      </span>
     </div>
   );
 }

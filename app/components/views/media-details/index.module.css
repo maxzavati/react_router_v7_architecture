@@ -23,6 +23,8 @@
 .backdropContent {
   position: relative;
   min-height: calc(100svh - var(--main-height));
+  max-width: 1280px;
+  margin: auto auto;
   display: grid;
   gap: 2rem;
   grid-template-columns: auto 1fr;
@@ -37,6 +39,10 @@
   object-fit: cover;
   border-radius: 8px;
   border: 1px solid var(--color-gray-200);
+}
+
+.info {
+  max-width: 800px;
 }
 
 .row {
@@ -64,4 +70,15 @@
 
 .year {
   font-weight: 400;
+}
+
+.ratingBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ratingLabels {
+  display: flex;
+  flex-direction: column;
 }
