@@ -49,6 +49,7 @@ export function MediaDetailsView() {
                   id={data.id}
                   isFavorite={isFavorite}
                   mediaType={isTvShowType ? 'tv' : 'movie'}
+                  size="large"
                 />
                 <div className={styles.ratingBox}>
                   <RatingMeter value={data.vote_average} size="lg" />

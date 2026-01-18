@@ -9,6 +9,16 @@
   transition: ease 0.2s;
 }
 
+.buttonLarge {
+  width: 45px;
+  height: 45px;
+}
+
+.buttonLarge svg {
+  height: 22px;
+  width: auto;
+}
+
 .button:hover {
   background: var(--color-red);
 }

@@ -8,6 +8,7 @@ interface ToggleFavoriteButtonProps {
   mediaType: 'movie' | 'tv';
   isFavorite?: boolean;
   className?: string;
+  size?: 'small' | 'large';
 }
 
 export function ToggleFavoriteButton({
@@ -15,6 +16,7 @@ export function ToggleFavoriteButton({
   mediaType,
   isFavorite = false,
   className,
+  size = 'small',
 }: ToggleFavoriteButtonProps) {
   const { sessionId, optimisticFavorite, isSubmitting, handleFavoriteAction } =
     useToggleFavoriteButtonViewModel({ id, mediaType, isFavorite });
@@ -23,12 +25,20 @@ export function ToggleFavoriteButton({
     return null;
   }
 
+  const buttonClassName = [
+    styles.button,
+    size === 'large' ? styles.buttonLarge : '',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <button
       type="button"
       disabled={isSubmitting}
       onClick={handleFavoriteAction}
-      className={`${styles.button} ${className}`}
+      className={buttonClassName}
       aria-label={
         optimisticFavorite ? `Remove from favorites` : `Add to favorites`
       }

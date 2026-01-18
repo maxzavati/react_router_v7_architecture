@@ -52,22 +52,6 @@
   margin: 16px 0;
 }
 
-.favoriteBox {
-  height: 45px;
-  width: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  border-radius: 50%;
-  background-color: var(--color-gray-400);
-}
-
-.favoriteBox svg {
-  height: 25px;
-  width: auto;
-}
-
 .year {
   font-weight: 400;
 }
