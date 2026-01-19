@@ -11,7 +11,6 @@ export function MediaDetailsView() {
     year,
     title,
     genres,
-    mediaId,
     posterUrl,
     isLoading,
     isFavorite,

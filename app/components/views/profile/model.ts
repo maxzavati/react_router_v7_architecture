@@ -3,16 +3,16 @@ import {
   getFavoriteTvShowsApi,
 } from '~/apis/user/endpoints';
 import { userContext } from '~/contexts/user';
+import { getSession } from '~/session.server';
 import type { Route } from '../../../routes/+types/profile';
-import { getSessionCookie } from '~/apis/auth/utils';
 import { toggleFavoriteActionModel } from '~/components/templates/favorite-button/model';
 
 export async function profileLoaderModel({
   request,
   context,
 }: Route.LoaderArgs) {
-  const cookieHeader = request.headers.get('cookie');
-  const sessionId = await getSessionCookie(cookieHeader);
+  const session = await getSession(request.headers.get('Cookie'));
+  const sessionId = session.get('sessionId');
   const user = context.get(userContext);
 
   if (sessionId && user.account) {
@@ -44,14 +44,14 @@ export async function profileActionModel({
   request,
   context,
 }: Route.ActionArgs) {
-  const cookieHeader = request.headers.get('cookie');
-  const sessionId = await getSessionCookie(cookieHeader);
+  const session = await getSession(request.headers.get('Cookie'));
+  const sessionId = session.get('sessionId');
   const formData = await request.formData();
   const intent = formData.get('intent');
   const user = context.get(userContext);
   const accountId = user?.account?.id ?? null;
 
-  if (intent === 'favorite-toggle') {
+  if (sessionId && intent === 'favorite-toggle') {
     return toggleFavoriteActionModel({
       sessionId,
       accountId,

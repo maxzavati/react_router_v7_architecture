@@ -1,18 +1,26 @@
-import { redirect } from 'react-router';
+import {
+  destroySession,
+  type SessionData,
+  type SessionFlashData,
+} from '~/session.server';
+import { redirect, type Session } from 'react-router';
 import { deleteSessionApi } from '~/apis/auth/endpoints';
-import { removeSessionCookie } from '~/apis/auth/utils';
 
 export async function logoutAction({
   sessionId,
+  session,
 }: {
   sessionId: string | null;
+  session: Session<SessionData, SessionFlashData>;
 }) {
   if (sessionId) {
     const res = await deleteSessionApi({ session_id: sessionId });
     if (res.success) {
-      const headers = new Headers();
-      headers.append('Set-Cookie', await removeSessionCookie());
-      return redirect('/auth/connect', { headers });
+      return redirect('/auth/connect', {
+        headers: {
+          'Set-Cookie': await destroySession(session),
+        },
+      });
     }
   }
 }

@@ -1,13 +1,14 @@
 import { redirect } from 'react-router';
 import type { Route } from '../+types/root';
 import { userContext } from '~/contexts/user';
-import { getSessionCookie } from '~/apis/auth/utils';
 import { getAccountDetailsApi } from '~/apis/user/endpoints';
+import { getSession } from '~/session.server';
 
 export async function authMiddleware({ request, context }: Route.ActionArgs) {
   const pathname = new URL(request.url).pathname;
-  const cookieHeader = request.headers.get('Cookie');
-  const sessionId = await getSessionCookie(cookieHeader);
+  const session = await getSession(request.headers.get('Cookie'));
+
+  const sessionId = session.get('sessionId');
 
   if (sessionId) {
     const account = await getAccountDetailsApi({ session_id: sessionId });

@@ -3,7 +3,7 @@ import {
   getTvShowDetailsApi,
 } from '~/apis/media/endpoints';
 import { userContext } from '~/contexts/user';
-import { getSessionCookie } from '~/apis/auth/utils';
+import { getSession } from '~/session.server';
 import { getFavoriteByIdApi } from '~/apis/user/endpoints';
 import type { Route } from '../../../routes/+types/media-details';
 import { toggleFavoriteActionModel } from '~/components/templates/favorite-button/model';
@@ -14,16 +14,14 @@ export async function mediaDetailsLoaderModel({
   request,
   params,
 }: Route.LoaderArgs) {
+  const session = await getSession(request.headers.get('Cookie'));
+  const sessionId = session.get('sessionId');
+
   const mediaType = params.mediaType;
   const id = params.id;
-
   const numericId = Number(id);
-
   const normalizedMediaType: NormalizedMediaType =
     mediaType === 'movies' ? 'movie' : 'tv';
-
-  const cookieHeader = request.headers.get('cookie');
-  const sessionId = await getSessionCookie(cookieHeader);
 
   const favoritePromise = sessionId
     ? getFavoriteByIdApi({
@@ -62,30 +60,19 @@ export async function mediaDetailsActionModel({
   request,
   context,
 }: Route.ActionArgs) {
-  const cookieHeader = request.headers.get('cookie');
-  const sessionId = await getSessionCookie(cookieHeader);
+  const session = await getSession(request.headers.get('Cookie'));
+  const sessionId = session.get('sessionId');
+
   const formData = await request.formData();
   const intent = formData.get('intent');
   const user = context.get(userContext);
   const accountId = user?.account?.id ?? null;
 
-  if (intent === 'favorite-toggle') {
+  if (sessionId && intent === 'favorite-toggle') {
     return toggleFavoriteActionModel({
       sessionId,
       accountId,
       formData,
     });
   }
-}
-
-export function metaDetailsLoaderModel({ matches }: Route.MetaArgs) {
-  const loaderData = matches[1]?.loaderData;
-
-  const { data, mediaType } = loaderData;
-  const title = (mediaType == 'tv' ? data.name : data.title) || 'Media details';
-
-  return [
-    { title },
-    { name: 'description', content: data.overview ?? 'Media details page' },
-  ];
 }

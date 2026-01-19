@@ -10,14 +10,14 @@ import {
 import { fetchAllPages } from '~/apis/utils';
 import { userContext } from '~/contexts/user';
 import type { Route } from '../../../routes/+types/home';
-import { getSessionCookie } from '~/apis/auth/utils';
 import { toggleFavoriteActionModel } from '~/components/templates/favorite-button/model';
+import { getSession } from '~/session.server';
 
 const params = { language: 'en-US', page: 1 };
 
 export async function homeLoaderModel({ request, context }: Route.LoaderArgs) {
-  const cookieHeader = request.headers.get('cookie');
-  const sessionId = await getSessionCookie(cookieHeader);
+  const session = await getSession(request.headers.get('Cookie'));
+  const sessionId = session.get('sessionId');
 
   const [trendingAllRes, topRatedMoviesRes, topRatedTvShowsRes] =
     await Promise.all([
@@ -87,14 +87,14 @@ export async function homeLoaderModel({ request, context }: Route.LoaderArgs) {
 }
 
 export async function homeActionModel({ request, context }: Route.ActionArgs) {
-  const cookieHeader = request.headers.get('cookie');
-  const sessionId = await getSessionCookie(cookieHeader);
+  const session = await getSession(request.headers.get('Cookie'));
+  const sessionId = session.get('sessionId');
   const formData = await request.formData();
   const intent = formData.get('intent');
   const user = context.get(userContext);
   const accountId = user?.account?.id ?? null;
 
-  if (intent === 'favorite-toggle') {
+  if (sessionId && intent === 'favorite-toggle') {
     return toggleFavoriteActionModel({
       sessionId,
       accountId,

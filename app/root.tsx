@@ -15,8 +15,8 @@ import './styles/app.css';
 import { Footer } from './components/templates/footer';
 import { Header } from './components/templates/header';
 import { timingMiddleware } from './middlewares/timing';
-import { getSessionCookie } from './apis/auth/utils';
 import { logoutAction } from './actions/logout';
+import { getSession } from './session.server';
 
 export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
 
@@ -30,12 +30,13 @@ export async function loader({ context }: Route.LoaderArgs) {
 }
 
 export async function action({ request }: Route.ActionArgs) {
-  const cookieHeader = request.headers.get('Cookie');
-  const sessionId = await getSessionCookie(cookieHeader);
+  const session = await getSession(request.headers.get('Cookie'));
+  const sessionId = session.get('sessionId');
+
   const formData = await request.formData();
 
   if (formData.get('intent') === 'logout') {
-    return logoutAction({ sessionId: sessionId ?? null });
+    return logoutAction({ sessionId: sessionId ?? null, session });
   }
 }
 

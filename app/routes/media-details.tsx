@@ -1,13 +1,18 @@
 import {
   mediaDetailsActionModel,
   mediaDetailsLoaderModel,
-  metaDetailsLoaderModel,
 } from '~/components/views/media-details/model';
 import type { Route } from './+types/media-details';
 import { MediaDetailsView } from '~/components/views/media-details/view';
 
 export function meta(args: Route.MetaArgs) {
-  return metaDetailsLoaderModel(args);
+  const loaderData = args.matches[1]?.loaderData;
+  const { data, mediaType } = loaderData;
+  const title = (mediaType == 'tv' ? data.name : data.title) || 'Media details';
+  return [
+    { title },
+    { name: 'description', content: data.overview ?? 'Media details page' },
+  ];
 }
 
 export function loader(args: Route.LoaderArgs) {

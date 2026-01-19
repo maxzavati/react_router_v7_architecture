@@ -1,6 +1,6 @@
 import { redirect } from 'react-router';
 import { createSessionApi, validateWithLoginApi } from '~/apis/auth/endpoints';
-import { expiresAtToMaxAgeSeconds, sessionIdCookie } from '~/apis/auth/utils';
+import { getSession, commitSession } from '~/session.server';
 
 export async function authLoginActionModel({ request }: { request: Request }) {
   try {
@@ -36,13 +36,18 @@ export async function authLoginActionModel({ request }: { request: Request }) {
       throw new Response('Session creation failed', { status: 500 });
     }
 
-    const maxAge = expiresAtToMaxAgeSeconds(validated.expires_at);
-    const setCookie = await sessionIdCookie.serialize(session.session_id, {
-      maxAge,
-    });
+    const sessionStore = await getSession(request.headers.get('Cookie'));
+    sessionStore.set('sessionId', session.session_id);
+
+    const expires =
+      validated.expires_at && !Number.isNaN(Date.parse(validated.expires_at))
+        ? new Date(validated.expires_at)
+        : undefined;
+
+    const sessionIdCookieValue = await commitSession(sessionStore, { expires });
 
     return redirect('/', {
-      headers: { 'Set-Cookie': setCookie },
+      headers: { 'Set-Cookie': sessionIdCookieValue },
     });
   } catch (error) {
     return {
