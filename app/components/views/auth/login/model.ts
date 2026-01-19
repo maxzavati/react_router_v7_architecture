@@ -1,6 +1,10 @@
+import {
+  getSession,
+  commitSession,
+  handleCookieExpireDate,
+} from '~/session.server';
 import { redirect } from 'react-router';
 import { createSessionApi, validateWithLoginApi } from '~/apis/auth/endpoints';
-import { getSession, commitSession } from '~/session.server';
 
 export async function authLoginActionModel({ request }: { request: Request }) {
   try {
@@ -38,12 +42,7 @@ export async function authLoginActionModel({ request }: { request: Request }) {
 
     const sessionStore = await getSession(request.headers.get('Cookie'));
     sessionStore.set('sessionId', session.session_id);
-
-    const expires =
-      validated.expires_at && !Number.isNaN(Date.parse(validated.expires_at))
-        ? new Date(validated.expires_at)
-        : undefined;
-
+    const expires = handleCookieExpireDate(validated.expires_at);
     const sessionIdCookieValue = await commitSession(sessionStore, { expires });
 
     return redirect('/', {
