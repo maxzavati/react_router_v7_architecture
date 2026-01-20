@@ -5,7 +5,7 @@ export async function authConnectModel() {
   try {
     const res = await createRequestTokenApi();
     return redirect(
-      `/auth/login?request_token=${encodeURIComponent(res.request_token)}`
+      `/auth/login?request_token=${encodeURIComponent(res.request_token)}`,
     );
   } catch (error) {
     return {

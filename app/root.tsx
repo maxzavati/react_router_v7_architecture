@@ -5,7 +5,6 @@ import {
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
-  useNavigate,
 } from 'react-router';
 import type { Route } from './+types/root';
 import { authMiddleware } from './middlewares/auth';
@@ -16,7 +15,7 @@ import { Footer } from './components/templates/footer';
 import { Header } from './components/templates/header';
 import { timingMiddleware } from './middlewares/timing';
 import { logoutAction } from './actions/logout';
-import { getSession } from './session.server';
+import { ErrorBoundaryView } from './components/views/error/view';
 
 export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
 
@@ -29,15 +28,8 @@ export async function loader({ context }: Route.LoaderArgs) {
   return { user };
 }
 
-export async function action({ request }: Route.ActionArgs) {
-  const session = await getSession(request.headers.get('Cookie'));
-  const sessionId = session.get('sessionId');
-
-  const formData = await request.formData();
-
-  if (formData.get('intent') === 'logout') {
-    return logoutAction({ sessionId: sessionId ?? null, session });
-  }
+export async function action(args: Route.ActionArgs) {
+  return await logoutAction(args);
 }
 
 export const links: Route.LinksFunction = () => [
@@ -82,8 +74,6 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let details = 'An unexpected error occurred.';
   // let stack: string | undefined;
 
-  const navigate = useNavigate();
-
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? '404' : 'Error';
     details =
@@ -96,20 +86,10 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main>
-      <h1>{message}</h1>
-      <p>{details}</p>
-      <div>
-        <button onClick={() => navigate(-1)}>Go back</button>
-        <form method="get">
-          <button type="submit">Reload</button>
-        </form>
-      </div>
-      {/* {stack ? (
-        <pre>
-          <code>{stack}</code>
-        </pre>
-      ) : null} */}
-    </main>
+    <ErrorBoundaryView
+      message={message}
+      details={details}
+      // stack={stack}
+    />
   );
 }

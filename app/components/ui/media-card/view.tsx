@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import styles from './index.module.css';
 import { RatingMeter } from '../rating-meter';
 import { convertToDateString } from '~/utils/dates';
-import { ToggleFavoriteButton } from '../../templates/favorite-button/view';
+import { ToggleFavoriteButton } from '../../favorite-button/view';
 
 interface ItemCardProps {
   image: string;

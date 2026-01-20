@@ -6,7 +6,7 @@ import { userContext } from '~/contexts/user';
 import { getSession } from '~/session.server';
 import { getFavoriteByIdApi } from '~/apis/user/endpoints';
 import type { Route } from '../../../routes/+types/media-details';
-import { toggleFavoriteActionModel } from '~/components/templates/favorite-button/model';
+import { toggleFavoriteActionModel } from '~/components/favorite-button/model';
 
 type NormalizedMediaType = 'movie' | 'tv';
 

@@ -5,7 +5,7 @@ import {
 import { userContext } from '~/contexts/user';
 import { getSession } from '~/session.server';
 import type { Route } from '../../../routes/+types/profile';
-import { toggleFavoriteActionModel } from '~/components/templates/favorite-button/model';
+import { toggleFavoriteActionModel } from '~/components/favorite-button/model';
 
 export async function profileLoaderModel({
   request,

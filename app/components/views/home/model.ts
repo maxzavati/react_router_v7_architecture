@@ -10,7 +10,7 @@ import {
 import { fetchAllPages } from '~/apis/utils';
 import { userContext } from '~/contexts/user';
 import type { Route } from '../../../routes/+types/home';
-import { toggleFavoriteActionModel } from '~/components/templates/favorite-button/model';
+import { toggleFavoriteActionModel } from '~/components/favorite-button/model';
 import { getSession } from '~/session.server';
 
 const params = { language: 'en-US', page: 1 };

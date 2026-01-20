@@ -3,7 +3,7 @@ import { Loader } from '~/components/ui/loader';
 import { useMediaDetailsViewModel } from './view-model';
 import { RatingMeter } from '~/components/ui/rating-meter';
 import { ErrorSection } from '~/components/ui/error-section';
-import { ToggleFavoriteButton } from '~/components/templates/favorite-button/view';
+import { ToggleFavoriteButton } from '~/components/favorite-button/view';
 
 export function MediaDetailsView() {
   const {

@@ -4,7 +4,7 @@ import { authConnectModel } from '~/components/views/auth/connect/model';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'Auth' },
+    { title: `Let's authenticate` },
     { name: 'description', content: 'Sign in to your account' },
   ];
 }
