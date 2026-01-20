@@ -86,19 +86,11 @@ export async function homeLoaderModel({ request, context }: Route.LoaderArgs) {
   };
 }
 
-export async function homeActionModel({ request, context }: Route.ActionArgs) {
-  const session = await getSession(request.headers.get('Cookie'));
-  const sessionId = session.get('sessionId');
-  const formData = await request.formData();
+export async function homeActionModel(args: Route.ActionArgs) {
+  const formData = await args.request.formData();
   const intent = formData.get('intent');
-  const user = context.get(userContext);
-  const accountId = user?.account?.id ?? null;
 
-  if (sessionId && intent === 'favorite-toggle') {
-    return toggleFavoriteActionModel({
-      sessionId,
-      accountId,
-      formData,
-    });
+  if (intent === 'favorite-toggle') {
+    return toggleFavoriteActionModel({ ...args, formData });
   }
 }
