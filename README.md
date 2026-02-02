@@ -72,6 +72,17 @@ Make sure to deploy the output of `npm run build`
 │   └── server/    # Server-side code
 ```
 
+## Create .env file
+
+To run the project you'll need the following `.env` variables:
+
+- VITE_BASE_DOMAIN=http://localhost:5173
+- VITE_SESSION_SECRET=random characters string
+- VITE_ACCESS_TOKEN=can be obtained here: https://developer.themoviedb.org/docs/getting-started
+- VITE_API_KEY=can be obtained here: https://developer.themoviedb.org/docs/getting-started
+- VITE_API_BASE_URL=https://api.themoviedb.org/3
+- VITE_IMAGE_BASE_URL=https://image.tmdb.org/t/p
+
 ---
 
 Built with ❤️ using React Router.
