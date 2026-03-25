@@ -1,3 +1,29 @@
+## Project Screenshots
+
+![Home Page](public/screenshots/01.png)
+_Home Page_
+
+![Media Details](public/screenshots/02.png)
+_Media Details_
+
+![Profile Page](public/screenshots/03.png)
+_Profile Page_
+
+![Favorites Feature](public/screenshots/04.png)
+_Favorites Feature_
+
+## Architecture & Security
+
+This project uses the **MVVM (Model-View-ViewModel)** architectural pattern:
+
+Model <----> ViewModel <----> View
+(Data & <----> (Business Logic) <----> (UI Components)
+Server) (No direct access to Model from View)
+
+- All business logic and sensitive operations are handled on the server side.
+- No tokens or API keys are ever exposed to the client.
+- The ViewModel acts as a secure bridge between the UI and the server, ensuring a clean separation of concerns.
+
 ## Features
 
 - 🚀 Server-side rendering
